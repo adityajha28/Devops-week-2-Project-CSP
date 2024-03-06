@@ -17,7 +17,7 @@ Before running the backend, ensure you have the following prerequisites installe
 Clone the backend repository from the following link:
  ```bash
 https://github.com/KushSawlani/Promact_Customer_Success
- ```bash
+   ```
 
 ## Running the Backend
 
