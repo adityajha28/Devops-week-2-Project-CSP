@@ -6,7 +6,6 @@ import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletResponse;
@@ -64,7 +63,10 @@ public class PdfGeneratorController {
 
             // Create HTML table for projects
             StringBuilder htmlTable = new StringBuilder();
-            htmlTable.append("<h1 style=\"margin: 1px;\">Projects</h1>");
+            htmlTable.append("<h1 style=\"margin: 1px;\">Projects Overview</h1>");
+            htmlTable.append("<br>");
+            htmlTable.append("<br>");
+            htmlTable.append("<br>");
             htmlTable.append("<table border=\"1\">");
             htmlTable.append("<tr><th>Project ID</th><th>Project Name</th><th>Description</th></tr>");
             for (Project project : projects) {
@@ -75,9 +77,9 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
-
+            htmlTable.append("<br>");
             // Create HTML table for audit histories
-            htmlTable.append("<h1 style=\"margin: 1px;\">Projects</h1>");
+            htmlTable.append("<h1 style=\"margin: 1px;\">Audit History</h1>");
             htmlTable.append("<table border=\"1\">");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Date of Audit</th><th>Reviewed By</th><th>Status</th><th>Reviewed Section</th><th>Comment Queries</th><th>Action Item</th></tr>");
             for (AuditHistory auditHistory : auditHistories) {
@@ -93,10 +95,14 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
+            htmlTable.append("<br>");
+            htmlTable.append("<br>");
+            htmlTable.append("<br>");
 
             // Create HTML table for escalation matrices
             htmlTable.append("<h1 style=\"margin: 1px;\">Escalation Matrices</h1>");
             htmlTable.append("<table border=\"1\">");
+            htmlTable.append("<br>");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Escalation Level</th><th>Name</th><th>Role</th><th>Type</th></tr>");
             for (EscalationMatrix escalationMatrix : escalationMatrices) {
                 htmlTable.append("<tr>");
@@ -109,10 +115,11 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
-
+            htmlTable.append("<br>");
             // Create HTML table for phase milestones
             htmlTable.append("<h1 style=\"margin: 1px;\">Phase Milestones</h1>");
             htmlTable.append("<table border=\"1\">");
+            htmlTable.append("<br>");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Title</th><th>Start Date</th><th>Completion Date</th><th>Approval Date</th><th>Status</th><th>Revised Completion Date</th><th>Comments</th></tr>");
             for (PhaseMilestone phaseMilestone : phaseMilestones) {
                 htmlTable.append("<tr>");
@@ -128,10 +135,11 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
-
+            htmlTable.append("<br>");
             //risk profilings
             htmlTable.append("<h1 style=\"margin: 1px;\">Risk Profilings</h1>");
             htmlTable.append("<table border=\"1\">");
+            htmlTable.append("<br>");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Risk Type</th><th>Description</th><th>Severity</th><th>Impact</th><th>Remedial Steps</th><th>Status</th><th>Closure Date</th></tr>");
             for (RiskProfiling riskProfiling : riskProfilings) {
                 htmlTable.append("<tr>");
@@ -147,28 +155,12 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
-
-            // Create HTML table for audit histories
-            htmlTable.append("<h1 style=\"margin: 1px;\">Audit Histories</h1>");
-            htmlTable.append("<table border=\"1\">");
-            htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Date of Audit</th><th>Reviewed By</th><th>Status</th><th>Reviewed Section</th><th>Comment Queries</th><th>Action Item</th></tr>");
-            for (AuditHistory auditHistory : auditHistories) {
-                htmlTable.append("<tr>");
-                htmlTable.append("<td>").append(auditHistory.getId()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getProject().getId()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getDateOfAudit()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getReviewedBy()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getStatus()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getReviewedSection()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getCommentQueries()).append("</td>");
-                htmlTable.append("<td>").append(auditHistory.getActionItem()).append("</td>");
-                htmlTable.append("</tr>");
-            }
-            htmlTable.append("</table>");
+            htmlTable.append("<br>");
 
             // Create HTML table for sprint details
             htmlTable.append("<h1 style=\"margin: 1px;\">Sprint Details</h1>");
             htmlTable.append("<table border=\"1\">");
+            htmlTable.append("<br>");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Sprint Number</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Comments</th></tr>");
             for (SprintDetail sprintDetail : sprintDetails) {
                 htmlTable.append("<tr>");
@@ -182,11 +174,12 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
-
+            htmlTable.append("<br>");
             // Create HTML table for stakeholders
 
             htmlTable.append("<h1 style=\"margin: 1px;\">Stakeholders</h1>");
             htmlTable.append("<table border=\"1\">");
+            htmlTable.append("<br>");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Title</th><th>Name</th><th>Contact</th></tr>");
             for (Stakeholder stakeholder : stakeholders) {
                 htmlTable.append("<tr>");
@@ -198,10 +191,12 @@ public class PdfGeneratorController {
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");
+            htmlTable.append("<br>");
 
             //version history
-            htmlTable.append("<h1 style=\"margin: 1px;\">Stakeholders</h1>");
+            htmlTable.append("<h1 style=\"margin: 1px;\">Version History:</h1>");
             htmlTable.append("<table border=\"1\">");
+            htmlTable.append("<br>");
             htmlTable.append("<tr><th>ID</th><th>Project ID</th><th>Version</th><th>Approved By</th><th>Change Reason</th><th>Change Type</th><th>Approval Date</th></tr>");
             for (VersionHistory versionHistory : versionHistories) {
                 htmlTable.append("<tr>");
