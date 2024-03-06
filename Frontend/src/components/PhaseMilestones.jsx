@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";
 
+
 export default function PhaseMilestones() {
     const [milestones, setMilestones] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
@@ -16,14 +17,17 @@ export default function PhaseMilestones() {
         try {
             const response = await Api.get("/phasemilestones");
             setMilestones(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error("Error fetching milestones:", error);
         }
     };
 
     const handleChange = (index, type,value) => {
+
         const updatedMilestones = [...milestones];
         updatedMilestones[index][type] = value;
+        console.log(updatedMilestones)
         setMilestones(updatedMilestones);
     };
 
@@ -128,7 +132,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                 <TableCell>
                                     <input
                                         onChange={(e) => handleChange(index, "startDate", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row.startDate}
+                                        type="date" style={{ "border": "none" }} value={row.startDate}
                                         readOnly={editedRowIndex != index}
                                     />
                                 </TableCell>
@@ -142,7 +146,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                 <TableCell>
                                     <input
                                         onChange={(e) => handleChange(index, "status", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row.status}
+                                        type="" style={{ "border": "none" }} value={row.status}
                                         readOnly={editedRowIndex != index}
                                     />
                                 </TableCell>

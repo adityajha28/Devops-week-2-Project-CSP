@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
+import "../styling/overview.css";
 import axios from "axios";
-import './../styling/overview.css';
 
-const Overview = () => {
+
+const OverView = () => {
   const [changesMade, setChangesMade] = useState(false);
   const [budgetMode, setBudgetMode] = useState({});
   const [projectDetails, setProjectDetails] = useState({
@@ -24,7 +25,7 @@ const Overview = () => {
       );
       setChangesMade(false);
       console.log(data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleInputChange = (e, field) => {
@@ -141,6 +142,10 @@ const Overview = () => {
       </div>
     </>
   );
-}
+};
 
-export default Overview;
+
+
+
+
+export default OverView;
