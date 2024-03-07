@@ -18,19 +18,19 @@ public class PhaseMilestone {
     private String title;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private String startDate;
 
     @Column(name = "completion_date")
-    private Date completionDate;
+    private String completionDate;
 
     @Column(name = "approval_date")
-    private Date approvalDate;
+    private String approvalDate;
 
     @Column(name = "status")
     private String status;
 
     @Column(name = "revised_completion_date")
-    private Date revisedCompletionDate;
+    private String revisedCompletionDate;
 
     @Column(name = "comments", columnDefinition = "TEXT")
     private String comments;
@@ -71,27 +71,27 @@ public class PhaseMilestone {
         this.title = title;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public void setCompletionDate(Date completionDate) {
+    public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
     }
 
-    public Date getApprovalDate() {
+    public String getApprovalDate() {
         return approvalDate;
     }
 
-    public void setApprovalDate(Date approvalDate) {
+    public void setApprovalDate(String approvalDate) {
         this.approvalDate = approvalDate;
     }
 
@@ -103,11 +103,11 @@ public class PhaseMilestone {
         this.status = status;
     }
 
-    public Date getRevisedCompletionDate() {
+    public String getRevisedCompletionDate() {
         return revisedCompletionDate;
     }
 
-    public void setRevisedCompletionDate(Date revisedCompletionDate) {
+    public void setRevisedCompletionDate(String revisedCompletionDate) {
         this.revisedCompletionDate = revisedCompletionDate;
     }
 

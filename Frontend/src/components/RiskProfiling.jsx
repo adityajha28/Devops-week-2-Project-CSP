@@ -170,7 +170,7 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                             </TableCell>
                             <TableCell>
                                 <input
-                                    type="text"
+                                    type="date"
                                     value={row.closureDate}
                                     style={{ "border": "none" }}
                                     onChange={(e) => handleChange(index, "closureDate", e.target.value)}

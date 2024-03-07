@@ -33,12 +33,13 @@ export default function PhaseMilestones() {
 
     const handleSave = async (rowData) => {
         try {
+            setEditedRowIndex(-1);
             if (rowData.id) {
                 await Api.put(`/phasemilestones/${rowData.id}`, rowData);
             } else {
                 await Api.post("/phasemilestones", rowData);
             }
-            setEditedRowIndex(-1);
+           
             fetchMilestones();
         } catch (error) {
             console.error("Error saving milestone:", error);
@@ -139,7 +140,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                 <TableCell>
                                     <input
                                         onChange={(e) => handleChange(index, "completionDate", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row.completionDate}
+                                        type="date" style={{ "border": "none" }} value={row.completionDate}
                                         readOnly={editedRowIndex != index}
                                     />
                                 </TableCell>
@@ -153,7 +154,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                 <TableCell>
                                     <input
                                         onChange={(e) => handleChange(index, "revisedCompletionDate", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row.revisedCompletionDate}
+                                        type="date" style={{ "border": "none" }} value={row.revisedCompletionDate}
                                         readOnly={editedRowIndex != index}
                                     />
                                 </TableCell>

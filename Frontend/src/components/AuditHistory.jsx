@@ -1,39 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
-import Api from "./Api";
+import Api from "./Api";// Import API utility for making HTTP requests
+
 
 export default function AuditHistoryComponent() {
-    const [history, setHistory] = useState([]);
-    const [editedRowIndex, setEditedRowIndex] = useState();
+    const [history, setHistory] = useState([]); // State variable for storing audit history data
+    const [editedRowIndex, setEditedRowIndex] = useState(); // State variable to track the index of the row being edited
 
     const tableHeaders = ['Date of Audit', 'Reviewed By', 'Status', 'Reviewed Section', 'Comment Queries', 'Action Item','Action'];
-
+ // Effect hook to fetch audit history data from the API when the component mounts
     useEffect(() => {
         fetchAuditHistory();
     }, []);
 
     const fetchAuditHistory = async () => {
+        // Function to fetch audit history data from the API
         try {
-            const response = await Api.get("/audithistory");
-            setHistory(response.data);
+            const response = await Api.get("/audithistory");// Send GET request to the audithistory endpoint
+            setHistory(response.data);// Set the fetched audit history data to the state variable
         } catch (error) {
-            console.error("Error fetching audit history:", error);
+            console.error("Error fetching audit history:", error);// Log any errors that occur during the fetch operation
+
         }
     };
 
     const handleChange = (index, type, value) => {
-        const updatedHistory = [...history];
-        updatedHistory[index][type] = value;
-        setHistory(updatedHistory);
+                // Function to handle changes in input fields
+
+        const updatedHistory = [...history]; // Create a copy of the audit history data
+        updatedHistory[index][type] = value;// Update the specific field in the copied data array
+        setHistory(updatedHistory);// Update the state variable with the modified data
     };
 
     const handleSave = async (rowData) => {
+        
+     // Function to handle saving edited or new audit history data
         try {
-            setEditedRowIndex(-1);
+            setEditedRowIndex(-1);// Reset the edited row index
             if (rowData.id) {
-                await Api.put(`/audithistory/${rowData.id}`, rowData);
+                await Api.put(`/audithistory/${rowData.id}`, rowData);// If the row has an ID, update it via PUT request
             } else {
-                await Api.post("/audithistory", rowData);
+                await Api.post("/audithistory", rowData);// If the row does not have an ID, create it via POST request
+            
             }
             fetchAuditHistory();    
         } catch (error) {
@@ -108,7 +116,7 @@ const DynamicTable = ({ tableHeaders, history, handleAddRow, handleChange, handl
                                 <TableCell >
                                     <input
                                         onChange={(e) => handleChange(index, "dateOfAudit", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row?.dateOfAudit}
+                                        type="date" style={{ "border": "none" }} value={row?.dateOfAudit}
                                         readOnly={editedRowIndex !== index}
                                     />
                                 </TableCell>

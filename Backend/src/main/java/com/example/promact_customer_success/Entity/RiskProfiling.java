@@ -1,7 +1,7 @@
 package com.example.promact_customer_success.Entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.lang.String;
 
 @Entity
 @Table(name = "risk_profiling")
@@ -35,14 +35,14 @@ public class RiskProfiling {
     private String status;
 
     @Column(name = "closure_date")
-    private Date closureDate;
+    private String closureDate;
 
     public RiskProfiling() {
         // Default constructor required by JPA
     }
 
     public RiskProfiling(Project project, String riskType, String description, String severity,
-                         String impact, String remedialSteps, String status, Date closureDate) {
+                         String impact, String remedialSteps, String status, String closureDate) {
         this.project = project;
         this.riskType = riskType;
         this.description = description;
@@ -117,11 +117,11 @@ public class RiskProfiling {
         this.status = status;
     }
 
-    public Date getClosureDate() {
+    public String getClosureDate() {
         return closureDate;
     }
 
-    public void setClosureDate(Date closureDate) {
+    public void setClosureDate(String closureDate) {
         this.closureDate = closureDate;
     }
 }

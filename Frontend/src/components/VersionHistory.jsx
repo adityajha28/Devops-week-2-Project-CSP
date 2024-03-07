@@ -29,12 +29,13 @@ export default function VersionHistory() {
 
     const handleSave = async (rowData) => {
         try {
+            setEditedRowIndex(-1);
             if (rowData.id) {
                 await Api.put(`/versionhistory/${rowData.id}`, rowData);
             } else {
                 await Api.post("/versionhistory", rowData);
             }
-            setEditedRowIndex(-1);
+        
             fetchVersions();
         } catch (error) {
             console.error("Error saving version:", error);
@@ -149,7 +150,7 @@ const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, hand
                                 </TableCell>
                                 <TableCell>
                                     <input
-                                        type="text"
+                                        type="date"
                                         value={row.revisionDate}
                                         style={{ "border": "none" }}
                                         onChange={(e) => handleChange(index, "revisionDate", e.target.value)}
@@ -158,7 +159,7 @@ const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, hand
                                 </TableCell>
                                 <TableCell>
                                     <input
-                                        type="text"
+                                        type="date"
                                         value={row.approvalDate}
                                         style={{ "border": "none" }}
                                         onChange={(e) => handleChange(index, "approvalDate", e.target.value)}

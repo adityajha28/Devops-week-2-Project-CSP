@@ -1,7 +1,7 @@
 package com.example.promact_customer_success.Entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.lang.String;
 
 @Entity
 @Table(name = "sprint_details")
@@ -19,10 +19,10 @@ public class SprintDetail {
     private Integer sprintNumber;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private String startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private String endDate;
 
     @Column(name = "status")
     private String status;
@@ -35,7 +35,7 @@ public class SprintDetail {
     public SprintDetail() {
     }
 
-    public SprintDetail(Project project, Integer sprintNumber, Date startDate, Date endDate, String status, String comments) {
+    public SprintDetail(Project project, Integer sprintNumber, String startDate, String endDate, String status, String comments) {
         this.project = project;
         this.sprintNumber = sprintNumber;
         this.startDate = startDate;
@@ -70,19 +70,19 @@ public class SprintDetail {
         this.sprintNumber = sprintNumber;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

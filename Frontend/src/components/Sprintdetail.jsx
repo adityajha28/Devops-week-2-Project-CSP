@@ -29,12 +29,13 @@ export default function SprintDetails() {
 
     const handleSave = async (rowData) => {
         try {
+            setEditedRowIndex(-1);
             if (rowData.id) {
                 await Api.put(`/sprintdetails/${rowData.id}`, rowData);
             } else {
                 await Api.post("/sprintdetails", rowData);
             }
-            setEditedRowIndex(-1);
+            
             fetchSprintDetails();
         } catch (error) {
             console.error("Error saving sprint detail:", error);
@@ -121,7 +122,7 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                             </TableCell>
                             <TableCell>
                                 <input
-                                    type="text"
+                                    type="date"
                                     value={row.startDate}
                                     style={{ "border": "none" }}
                                     onChange={(e) => handleChange(index, "startDate", e.target.value)}
@@ -130,7 +131,7 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                             </TableCell>
                             <TableCell>
                                 <input
-                                    type="text"
+                                    type="date"
                                     value={row.endDate}
                                     style={{ "border": "none" }}
                                     onChange={(e) => handleChange(index, "endDate", e.target.value)}

@@ -1,6 +1,6 @@
 package com.example.promact_customer_success.Entity;
 import jakarta.persistence.*;
-import java.util.Date;
+import java.lang.String;
 
 @Entity
 @Table(name = "version_history")
@@ -27,10 +27,10 @@ public class VersionHistory {
     private String createdBy;
 
     @Column(name = "revision_date", nullable = false)
-    private Date revisionDate;
+    private String revisionDate;
 
     @Column(name = "approval_date")
-    private Date approvalDate;
+    private String approvalDate;
 
     @Column(name = "approved_by", length = 255)
     private String approvedBy;
@@ -40,12 +40,13 @@ public class VersionHistory {
     }
 
     // Constructor with mandatory fields
-    public VersionHistory(Project project, Integer version, String changeType, String createdBy, Date revisionDate) {
+    public VersionHistory(Project project, Integer version, String changeType, String createdBy, String revisionDate,String approvalDate) {
         this.project = project;
         this.version = version;
         this.changeType = changeType;
         this.createdBy = createdBy;
         this.revisionDate = revisionDate;
+        this.approvalDate = approvalDate;
     }
 
     // Getters and setters
@@ -98,19 +99,19 @@ public class VersionHistory {
         this.createdBy = createdBy;
     }
 
-    public Date getRevisionDate() {
+    public String getRevisionDate() {
         return revisionDate;
     }
 
-    public void setRevisionDate(Date revisionDate) {
+    public void setRevisionDate(String revisionDate) {
         this.revisionDate = revisionDate;
     }
 
-    public Date getApprovalDate() {
+    public String getApprovalDate() {
         return approvalDate;
     }
 
-    public void setApprovalDate(Date approvalDate) {
+    public void setApprovalDate(String approvalDate) {
         this.approvalDate = approvalDate;
     }
 
