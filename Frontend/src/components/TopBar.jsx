@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex, Box, Search, Avatar } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
+import "../styling/topbar.css";
 
 const TopBar = () => {
   return (
