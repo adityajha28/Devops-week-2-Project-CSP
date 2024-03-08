@@ -4,8 +4,9 @@ import "monday-ui-react-core/tokens";
 import "../styling/overview.css";
 import axios from "axios";
 
-
+// Component for managing project overview
 const OverView = () => {
+  // State variables for tracking changes, budget mode, and project details
   const [changesMade, setChangesMade] = useState(false);
   const [budgetMode, setBudgetMode] = useState({});
   const [projectDetails, setProjectDetails] = useState({
@@ -14,11 +15,13 @@ const OverView = () => {
     timeline: "",
   });
 
+  // Function to handle form submission
   const handleSubmit = async () => {
     try {
       console.log("submit clicked");
+     //bacekend functionality for this is remaining
       const { data } = await axios.post(
-        "http://localhost:8000/project/project_details",
+        "http://localhost:8081/project/project_details",// still not created endpoint for this it is random endpoint 
         {
           projectDetails,
         }
@@ -27,7 +30,7 @@ const OverView = () => {
       console.log(data);
     } catch (error) {}
   };
-
+// Function to handle input change
   const handleInputChange = (e, field) => {
     // console.log(e);
     const newProjectDetails = { ...projectDetails };
@@ -40,11 +43,11 @@ const OverView = () => {
     setProjectDetails(newProjectDetails);
     setChangesMade(true);
   };
-
+ // Function to fetch data from the backend
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/project/project_details"
+        "http://localhost:8081/project/project_details"
       );
 
       const { data } = await response.json();

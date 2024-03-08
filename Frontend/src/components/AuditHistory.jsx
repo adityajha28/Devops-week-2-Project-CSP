@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";// Import API utility for making HTTP requests
 
-
+//component for audit history
 export default function AuditHistoryComponent() {
     const [history, setHistory] = useState([]); // State variable for storing audit history data
     const [editedRowIndex, setEditedRowIndex] = useState(); // State variable to track the index of the row being edited

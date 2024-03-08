@@ -3,7 +3,7 @@ import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
 import axios from "axios";
 import './../styling/scope.css';
-
+//not implemented backend logic for this
 const ScopeAndStack = () => {
   const [projectDetails, setProjectDetails] = useState({});
   const [changesMade, setChangesMade] = useState(false);
@@ -11,7 +11,7 @@ const ScopeAndStack = () => {
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/project/project_details",
+        "http://localhost:8081/project/project_details",//not have this endpoint in backend still not mapped 
         {
           projectDetails,
         }
@@ -48,7 +48,7 @@ const ScopeAndStack = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/project/project_details"
+        "http://localhost:8081/project/project_details"
       );
       const { data } = await response.json();
       setProjectDetails(data[0]);

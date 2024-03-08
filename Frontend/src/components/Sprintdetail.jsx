@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";
-
+// SprintDetails component for managing sprint details
 export default function SprintDetails() {
+    // State variables for sprint details and edited row index
     const [sprintDetails, setSprintDetails] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
-
+// Define table headers
     const tableHeaders = ['Sprint Number', 'Start Date', 'End Date', 'Status', 'Comments', 'Action'];
-
+  // Fetch sprint details on component mount
     useEffect(() => {
         fetchSprintDetails();
     }, []);
-
+ // Function to fetch sprint details
     const fetchSprintDetails = async () => {
         try {
             const response = await Api.get("/sprintdetails");
@@ -20,13 +21,13 @@ export default function SprintDetails() {
             console.error("Error fetching sprint details:", error);
         }
     };
-
+ // Function to handle change in sprint details
     const handleChange = (index, type, value) => {
         const updatedSprintDetails = [...sprintDetails];
         updatedSprintDetails[index][type] = value;
         setSprintDetails(updatedSprintDetails);
     };
-
+  // Function to save sprint detail
     const handleSave = async (rowData) => {
         try {
             setEditedRowIndex(-1);
@@ -42,6 +43,7 @@ export default function SprintDetails() {
         }
     };
 
+    // Function to delete sprint detail
     const handleDelete = async (rowData, index) => {
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
@@ -56,11 +58,11 @@ export default function SprintDetails() {
         }
         setEditedRowIndex(-1);
     };
-
+// Function to handle edit of sprint detail
     const handleEdit = (index) => {
         setEditedRowIndex(index);
     };
-
+// Function to add a new row for sprint detail
     const handleAddRow = () => {
         setSprintDetails([...sprintDetails, {
             id: null,
@@ -90,7 +92,7 @@ export default function SprintDetails() {
         </div>
     );
 }
-
+// DynamicTable component for rendering dynamic table with sprint details
 const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
     return (
         <>

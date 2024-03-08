@@ -18,15 +18,17 @@ import Stakeholders from "./Stakeholders";
 import VersionHistory from "./VersionHistory";
 import AuditHistory from "./AuditHistory";
 import Overview from "./OverView";
-import Api from "./Api";
+// Main component for the project view
 const Project = () => {
+  // State variable to track the active tab
+
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div style={{marginTop:"20px"}}>
+    <div style={{ marginTop: "20px" }}>
       <div className="save_button">
-      <a href="http://localhost:8081/export/pdf"><button className="Export_button">Export As Pdf</button></a> 
-        
+        <a href="http://localhost:8081/export/pdf"><button className="Export_button">Export As Pdf</button></a>
+
 
       </div>
       <Box className="project-component-wrapper" >
@@ -59,7 +61,7 @@ const Project = () => {
           <Box className="project-section-box">
             <TabPanels activeTabId={activeTab}>
               <TabPanel>
-                <Overview/>
+                <Overview />
               </TabPanel>
               <TabPanel>
                 <ScopeAndStack />
@@ -74,16 +76,16 @@ const Project = () => {
                 <SprintDetails />
               </TabPanel>
               <TabPanel>
-                <RiskProfiling/>
+                <RiskProfiling />
               </TabPanel>
               <TabPanel>
-                <Stakeholders/>
+                <Stakeholders />
               </TabPanel>
               <TabPanel>
-                <VersionHistory/>
+                <VersionHistory />
               </TabPanel>
               <TabPanel>
-                <AuditHistory/>
+                <AuditHistory />
               </TabPanel>
               {/* <TabPanel>
                 <Project_Phases_Section />

@@ -1,73 +1,89 @@
 import React, { useState, useEffect } from "react";
 import { Box, Flex, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button } from "monday-ui-react-core";
-import axios from "axios";
-import Api from "./Api";
+import Api from "./Api";// Importing API utility for making HTTP requests
 
 export default function EscalationMatrix() {
-    const [data, setData] = useState([]);
-    const [editedRowIndex, setEditedRowIndex] = useState(-1);
+    const [data, setData] = useState([]);// State variable for storing data fetched from the API
+    const [editedRowIndex, setEditedRowIndex] = useState(-1);// State variable to track the index of the row being edited
 
-    const tableNames = ['Escalation Level', 'Role', 'Name', 'Type', 'Action'];
+    const tableNames = ['Escalation Level', 'Role', 'Name', 'Type', 'Action']; // Array containing table column names
 
 
     useEffect(async () => {
+        // Effect hook to fetch data from the API when the component mounts
         await Api.get("/escalation-matrix").then((res) => {
             console.log(res.data);
+             // Fetch data from the API endpoint
             setData(res.data);
         })
     }, []);
 
     const handleChange = (value, type, index) => {
+         // Function to handle changes in input fields
         const updatedDate = [...data];
         updatedDate[index][type] = value;
         setData(updatedDate);
     }
 
     const handleSave = async (rowData) => {
+                // Function to handle saving data
+
         console.log(rowData);
-        setEditedRowIndex(-1);
+        setEditedRowIndex(-1);// Reset the edited row index
         if (rowData.id != '') {
+                        // If the row has an ID, it already exists in the database, so update it
+
             await Api.put(`escalation-matrix/${rowData.id}`, rowData).then((res) => {
-                console.log(res)
+                console.log(res)// Log the response after successful update
             }).catch((err) => {
-                console.log(err);
+                console.log(err);// Log any errors that occur during the update process
             })
         }
         else {
+            // If the row does not have an ID, it is a new entry, so create it
 
             await Api.post("escalation-matrix", rowData).then((res) => {
-                console.log(res)
+                console.log(res)// Log the response after successful creation
             }).catch((err) => {
-                console.log(err);
+                console.log(err); // Log any errors that occur during the creation process
             })
         }
     }
 
     const handleDelete = async (rowDate, index) => {
+        // Function to handle deleting a row
+
         const getConfimation = confirm("Do you really want to delete it");
         console.log(getConfimation);
         if (getConfimation == true) {
+                        // If the user confirms deletion
+
             await Api.delete(`escalation-matrix/${rowDate.id}`,).then((res) => {
-                const newData = [...data];
-                newData.splice(index, 1);
-                setData(newData);
+                                // Send delete request to the API endpoint
+
+                const newData = [...data];// Create a copy of the data array
+                newData.splice(index, 1);// Remove the deleted row from the copied data array
+                setData(newData);// Update the state variable with the modified data
             }).catch((err) => {
-                console.log(err);
+                console.log(err);// Log any errors that occur during the deletion process
             })
         }
-        setEditedRowIndex(-1);
+        setEditedRowIndex(-1);// Reset the edited row index
     }
 
     const handleAddRow = () => {
+           // Function to handle adding a new row
         setData([...data, {
             id: "", escalationLevel: "", role: "", name: "", type: "", project: {
                 id: 1
             }
-        }]);
+        }]);// Append a new row with default values to the data array
     }
 
     const handleEdit = (index) => {
-        setEditedRowIndex(index);
+                // Function to handle editing a row
+
+        setEditedRowIndex(index);// Set the index of the row being edited
     }
 
     return (

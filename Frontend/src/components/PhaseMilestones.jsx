@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";
 
-
+// Component for managing phase 
 export default function PhaseMilestones() {
+     // State variables for milestones and edited row index
     const [milestones, setMilestones] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
-
+ // Headers for the table
     const tableHeaders = ['Title', 'Start Date', 'Completion Date', 'Approval Date', 'Status', 'Revised Completion Date', 'Comments', 'Action'];
-
+ // Fetch milestones on component mount
     useEffect(() => {
         fetchMilestones();
     }, []);
-
+ // Fetch milestones from the API
     const fetchMilestones = async () => {
         try {
             const response = await Api.get("/phasemilestones");
@@ -22,7 +23,7 @@ export default function PhaseMilestones() {
             console.error("Error fetching milestones:", error);
         }
     };
-
+     // Handle change in milestone data
     const handleChange = (index, type,value) => {
 
         const updatedMilestones = [...milestones];
@@ -30,7 +31,7 @@ export default function PhaseMilestones() {
         console.log(updatedMilestones)
         setMilestones(updatedMilestones);
     };
-
+ // Handle saving milestone data
     const handleSave = async (rowData) => {
         try {
             setEditedRowIndex(-1);
@@ -45,7 +46,7 @@ export default function PhaseMilestones() {
             console.error("Error saving milestone:", error);
         }
     };
-
+     // Handle deleting a milestone
     const handleDelete = async (rowData, index) => {
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
@@ -60,11 +61,13 @@ export default function PhaseMilestones() {
         }
         setEditedRowIndex(-1);
     };
+        // Handle editing a milestone
 
     const handleEdit = (index) => {
         setEditedRowIndex(index);
     };
-
+    
+    // Handle adding a new row for a milestone
     const handleAddRow = () => {
         setMilestones([...milestones, {
             id: null,
@@ -80,6 +83,7 @@ export default function PhaseMilestones() {
             }
         }]);
     };
+    // Render the component
 
     return (
         <div>
@@ -96,9 +100,11 @@ export default function PhaseMilestones() {
         </div>
     );
 }
+// Component for rendering dynamic table
 
 const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
     console.log(milestones);
+// Render the dynamic table
     return (
         <>
             <Button onClick={handleAddRow} style={{ marginBottom: "8px" }}>Add Row</Button>

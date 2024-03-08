@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";
-
+// Component for managing risk profiling
 export default function RiskProfiling() {
+    // State variables for risk profiles and edited row index
     const [riskProfiles, setRiskProfiles] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
 
+    // Table headers for risk profiles table
     const tableHeaders = ['Risk Type', 'Description', 'Severity', 'Impact', 'Remedial Steps', 'Status', 'Closure Date', 'Action'];
 
     useEffect(() => {
         fetchRiskProfiles();
     }, []);
-
+ // Function to fetch risk profiles data from the API
     const fetchRiskProfiles = async () => {
         try {
             const response = await Api.get("/riskprofilings");
@@ -20,13 +22,13 @@ export default function RiskProfiling() {
             console.error("Error fetching risk profiles:", error);
         }
     };
-
+ // Function to handle changes in risk profile data
     const handleChange = (index, type, value) => {
         const updatedRiskProfiles = [...riskProfiles];
         updatedRiskProfiles[index][type] = value;
         setRiskProfiles(updatedRiskProfiles);
     };
-
+// Function to save risk profile data
     const handleSave = async (rowData) => {
         try {
             if (rowData.id) {
@@ -41,6 +43,7 @@ export default function RiskProfiling() {
         }
     };
 
+    // Function to delete risk profile data
     const handleDelete = async (rowData, index) => {
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
@@ -56,10 +59,12 @@ export default function RiskProfiling() {
         setEditedRowIndex(-1);
     };
 
+    // Function to handle edit action
     const handleEdit = (index) => {
         setEditedRowIndex(index);
     };
 
+    // Function to add a new row for risk profiles
     const handleAddRow = () => {
         setRiskProfiles([...riskProfiles, {
             id: null,
@@ -91,7 +96,7 @@ export default function RiskProfiling() {
         </div>
     );
 }
-
+// Dynamic Table component to render the risk profiles table
 const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
     return (
         <>
