@@ -9,11 +9,10 @@ const Sidebar = () => {
     <div className="sidebar-wrapper"> {/* Wrapper div for the sidebar */}
       <Box className="sidebar-menu-box"> {/* Box component for the sidebar menu */}
         <Flex justify="Center" gap={10}> {/* Flex container with center alignment and gap */}
-          <Menu> {/* Menu component */}
-            {/* Menu items */}
-            <MenuItem title="Projects" /> {/* Menu item for Projects */}
-            <MenuItem title="Projects Managers" /> {/* Menu item for Project Managers */}
-            <MenuItem title="Employees" /> {/* Menu item for Employees */}
+          <Menu>
+            <MenuItem title="Projects" />
+            <MenuItem title="Projects Managers" />
+            <MenuItem title="Employees" />
           </Menu>
         </Flex>
       </Box>
