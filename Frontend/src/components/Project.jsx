@@ -11,12 +11,12 @@ import "monday-ui-react-core/tokens";
 import "../styling/project.css"
 import ScopeAndStack from "./ScopeAndStack";
 import EscalationMatrix from "./EscalationMatrix";
-import PhaseMilestones from "./PhaseMilestones";
+import PhaseMilestones from "./ProjectManager/PhaseMilestones";
 import SprintDetails from "./Sprintdetail";
 import RiskProfiling from "./RiskProfiling";
 import Stakeholders from "./Stakeholders";
 import VersionHistory from "./VersionHistory";
-import AuditHistory from "./AuditHistory";
+import AuditHistory from "./Auditor/AuditHistory";
 import Overview from "./OverView";
 // Main component for the project view
 const Project = () => {
@@ -87,24 +87,6 @@ const Project = () => {
               <TabPanel>
                 <AuditHistory />
               </TabPanel>
-              {/* <TabPanel>
-                <Project_Phases_Section />
-              </TabPanel>
-              <TabPanel>
-                <Project_Sprint_Details_Section />
-              </TabPanel>
-              <TabPanel>
-                <Project_Risk_Profiling_Section />
-              </TabPanel>
-              <TabPanel>
-                <Project_Stakeholder_Section />
-              </TabPanel>
-              <TabPanel>
-                <Project_Version_History_Section />
-              </TabPanel>
-              <TabPanel>
-                <Project_Audit_History_Section />
-              </TabPanel> */}
             </TabPanels>
           </Box>
         </Flex>

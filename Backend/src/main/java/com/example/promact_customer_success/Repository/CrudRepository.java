@@ -22,6 +22,7 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
 
     Optional<T> findById(Integer id);
 
+
     long count();
 
     void deleteById(ID id);

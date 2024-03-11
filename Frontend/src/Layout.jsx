@@ -5,6 +5,7 @@ import Content from "./components/Content";
 import Project from "./components/Project";
 import "./styling/layout.css";
 import { Box, Flex } from "monday-ui-react-core";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
@@ -25,8 +26,9 @@ const Layout = () => {
               <Sidebar />
             </Box>
             <Box className="content-container">
+              <Outlet/>
               {/* <Content /> */}
-              <Project />
+              {/* <Project /> */}
             </Box>
           </Flex>
         </Box>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
-import Api from "./Api";// Import API utility for making HTTP requests
+import Api from "../Api";// Import API utility for making HTTP requests
 
 //component for audit history
 export default function AuditHistoryComponent() {
@@ -12,7 +12,7 @@ export default function AuditHistoryComponent() {
     useEffect(() => {
         fetchAuditHistory();
     }, []);
-
+            
     const fetchAuditHistory = async () => {
         // Function to fetch audit history data from the API
         try {

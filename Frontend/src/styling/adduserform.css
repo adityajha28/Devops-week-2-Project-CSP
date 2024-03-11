@@ -1,0 +1,48 @@
+/* Form container */
+.max-w-4xl {
+    max-width: 56rem; /* 4xl in Tailwind CSS */
+    margin: auto;
+    padding: 1rem;
+  }
+  
+  /* Input fields */
+  input[type="text"],
+  input[type="password"],
+  select {
+    border: 1px solid #e2e8f0; /* Tailwind CSS gray-200 */
+    padding: 0.5rem;
+    border-radius: 0.25rem; /* Tailwind CSS rounded */
+    width: 100%;
+  }
+  
+  /* Error styles */
+  .text-red-500 {
+    color: #e53e3e; /* Tailwind CSS red-500 */
+    font-size: 0.875rem; /* Tailwind CSS text-sm */
+  }
+  
+  /* Button styles */
+  button {
+    background-color: #4299e1; /* Tailwind CSS blue-500 */
+    color: #ffffff; /* Tailwind CSS white */
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem; /* Tailwind CSS rounded */
+    width: 100%;
+  }
+  
+  button:hover {
+    background-color: #3182ce; /* Tailwind CSS blue-700 */
+  }
+  
+  /* Space between form elements */
+  .space-y-4 > * {
+    margin-bottom: 1rem; /* Tailwind CSS space-y-4 */
+  }
+  
+  /* Label styles */
+  label {
+    font-size: 0.875rem; /* Tailwind CSS text-sm */
+    font-weight: 500; /* Tailwind CSS font-medium */
+    color: #4a5568; /* Tailwind CSS gray-700 */
+  }
+  

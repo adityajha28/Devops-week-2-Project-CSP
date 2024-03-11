@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
-import Api from "./Api";
+import Api from "../Api";
 
 // Component for managing phase 
 export default function PhaseMilestones() {
