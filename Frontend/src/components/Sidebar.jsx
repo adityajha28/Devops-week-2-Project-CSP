@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styling/sidebar.css"; // Importing CSS file for styling
 import "monday-ui-react-core/tokens"; // Importing tokens from monday-ui-react-core
 import { Box, Menu, MenuItem, Flex } from "monday-ui-react-core"; // Importing necessary components from monday-ui-react-core
+import CreateProject from "./CreateProject";
 
 // Sidebar component
 const Sidebar = () => {
+  const [showModel, setShowModel] = useState(false);
+
   return (
     <div className="sidebar-wrapper"> {/* Wrapper div for the sidebar */}
       <Box className="sidebar-menu-box"> {/* Box component for the sidebar menu */}
+        <button className="" style={{margin:"2px"}} onClick={(e) => { setShowModel(true) }}>Create Project</button>
         <Flex justify="Center" gap={10}> {/* Flex container with center alignment and gap */}
           <Menu>
             <MenuItem title="Projects" />
@@ -16,6 +20,7 @@ const Sidebar = () => {
           </Menu>
         </Flex>
       </Box>
+      <CreateProject showModal={showModel} setShowModal={setShowModel} />
     </div>
   );
 };

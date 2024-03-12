@@ -11,6 +11,7 @@ const ProtectedRoute = ({ children, allowedRole, ...rest }) => {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
+    
     const fetchUserRole = async () => {
       try {
         const response = await Api.get(`/application-user/${user.email}`);
@@ -26,6 +27,9 @@ const ProtectedRoute = ({ children, allowedRole, ...rest }) => {
     }
   }, [isAuthenticated, isLoading, user, navigate]);
 
+  useEffect(()=>{
+    console.log("procted route");
+  },[]);
   if (isLoading) return null; 
   if (!isAuthenticated) {
     return <Navigate to="/userlogin" />;

@@ -7,22 +7,21 @@ const AddUserForm = () => {
     name: '',
     role: 'Client', 
     email: '',
-    password: '',
   });
 
   const [userList, setUserList] = useState([]);
   const [errors, setErrors] = useState({});
   const [fetch, setFetch] = useState(false);
 
+  const fetchUserList = async () => {
+    try {
+      const response = await Api.get('application-user');
+      setUserList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchUserList = async () => {
-      try {
-        const response = await Api.get('application-user');
-        setUserList(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
     fetchUserList();
   }, []);
@@ -40,12 +39,6 @@ const AddUserForm = () => {
       errors.email = 'Email is not valid';
     }
 
-    if (!userData.password.trim()) {
-      errors.password = 'Password is required';
-    } else if (userData.password.length < 8) {
-      errors.password = 'Password must be at least 8 characters';
-    }
-
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -60,7 +53,7 @@ const AddUserForm = () => {
     if (validateForm()) {
       try {
         await Api.post('application-user', userData);
-        setUserData({role: 'Client', email: '', password: '' });
+        setUserData({role: 'Client', email: '',name:'' });
       } catch (error) {
         // Handle errors
         console.error(error);
@@ -110,17 +103,6 @@ const AddUserForm = () => {
               className={`border p-2 rounded w-full ${errors.email && 'border-red-500'}`}
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={userData.password}
-              onChange={handleInputChange}
-              className={`border p-2 rounded w-full ${errors.password && 'border-red-500'}`}
-            />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
           <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded w-full">
             Add User

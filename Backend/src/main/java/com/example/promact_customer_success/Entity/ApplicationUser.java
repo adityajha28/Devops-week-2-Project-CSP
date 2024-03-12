@@ -10,19 +10,37 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = true)
+    private Project project;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "role")
     private String role;
 
-    public ApplicationUser(String email, String role) {
+
+    public ApplicationUser(Project project, String email, String role) {
+        this.project = project;
+        this.email = email;
+        this.role = role;
+    }
+    public ApplicationUser( String email, String role) {
         this.email = email;
         this.role = role;
     }
 
     public ApplicationUser() {
 
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Integer getId() {

@@ -9,13 +9,16 @@ export default function EscalationMatrix() {
     const tableNames = ['Escalation Level', 'Role', 'Name', 'Type', 'Action']; // Array containing table column names
 
 
-    useEffect(async () => {
-        // Effect hook to fetch data from the API when the component mounts
+    const fetchData=async()=>{
         await Api.get("/escalation-matrix").then((res) => {
             console.log(res.data);
              // Fetch data from the API endpoint
             setData(res.data);
         })
+    }
+    useEffect( () => {
+        // Effect hook to fetch data from the API when the component mounts
+      fetchData();
     }, []);
 
     const handleChange = (value, type, index) => {

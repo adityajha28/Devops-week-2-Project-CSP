@@ -8,12 +8,12 @@ import ClientFeedBack from "./ClientFeedback";
 const ClientDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
 
+  const fetchToken = async () => {
+    if (isAuthenticated) {
+      const temp = await getAccessTokenSilently();
+    }
+  };
   useEffect(() => {
-    const fetchToken = async () => {
-      if (isAuthenticated) {
-        const temp = await getAccessTokenSilently();
-      }
-    };
 
     fetchToken();
   }, [getAccessTokenSilently, isAuthenticated]);

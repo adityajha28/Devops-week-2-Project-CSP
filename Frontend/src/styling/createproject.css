@@ -1,0 +1,62 @@
+.modal {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  left: 40%;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.close-btn{
+   display: flex;
+   justify-content: end;
+   align-self:center;   
+}
+
+.hidden {
+  display: none;
+}
+
+form>div {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button[type="button"] {
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  margin-bottom: 15px;
+}

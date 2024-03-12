@@ -10,44 +10,14 @@ import Api from "./Api";
 const TopBar = () => {
   const { isAuthenticated, user, isLoading, loginWithRedirect, logout } =
     useAuth0();
-  const navigate = useNavigate();
+  useEffect(()=>{
+    console.log("topbar");
+  },[]);
 
-  useEffect(() => {
-    const fetchUserRole = async () => {
-      try {
-        if (isAuthenticated && !isLoading) {
-          
-          const response = await Api.get(`application-user/${user.email}`);
-          const userRole = response.data.role || "Client";
-          // console.log(userRole);
-
-          switch (userRole) {
-            case "Admin":
-              navigate("/admin/dashboard");
-              break;
-            case "Client":
-              navigate("/client/dashboard");
-              break;
-            case "Auditor":
-              navigate("/auditor/dashboard");
-              break;
-            case "ProjectManager":
-              navigate("/projectmanager/dashboard");
-              break;
-            default:
-              navigate("/");
-          }
-        }
-      } catch (error) {
-        const res=await Api.post('application-user',{email:user.email,role:'Client'});
-        console.log(res);
-        console.error("Error fetching user role:", error);
-        navigate("/client/dashboard");
-      }
-    };
-
-    fetchUserRole();
-  }, [isAuthenticated, isLoading, navigate]);
+  const handleLogout=()=>{
+    localStorage.setItem("userRole","");
+    logout({ returnTo: window.location.origin });
+  }
   return (
     <div className="top-bar-wrapper">
       <Flex justify="SpaceBetween" className="bar-container">
@@ -69,7 +39,7 @@ const TopBar = () => {
           <button
             onClick={() =>
               isAuthenticated
-                ? logout({ returnTo: window.location.origin })
+                ? handleLogout()
                 : loginWithRedirect()
             }
             className="bg-blue-500 text-white px-4 py-2 text-lg font-bold rounded"

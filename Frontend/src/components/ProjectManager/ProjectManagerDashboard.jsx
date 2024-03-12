@@ -13,13 +13,13 @@ const ProjectManagerDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
   const [token, setToken] = useState(null);
 
+  const fetchToken = async () => {
+    if (isAuthenticated) {
+      const temp = await getAccessTokenSilently();
+      setToken(temp);
+    }
+  };
   useEffect(() => {
-    const fetchToken = async () => {
-      if (isAuthenticated) {
-        const temp = await getAccessTokenSilently();
-        setToken(temp);
-      }
-    };
 
     fetchToken();
   }, [getAccessTokenSilently, isAuthenticated]);
