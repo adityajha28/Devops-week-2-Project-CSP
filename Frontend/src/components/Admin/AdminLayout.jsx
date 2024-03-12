@@ -1,4 +1,4 @@
-import { Button, Flex } from 'monday-ui-react-core'
+import { Box, Button, Flex, Tab, TabList } from 'monday-ui-react-core'
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import CreateProject from '../CreateProject'
@@ -23,9 +23,7 @@ function AdminLayout() {
                     <Link to=''></Link>
                 </div>
             </Flex>
-
             <div>
-                
                 <Outlet />
             </div>
         </>

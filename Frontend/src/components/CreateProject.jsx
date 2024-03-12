@@ -15,6 +15,7 @@ const CreateProject = ({ showModal, setShowModal }) => {
     });
 
     useEffect(() => {
+        setStep(1);
         setFormData({
             projectName: '',
             projectDescription: '',
