@@ -22,6 +22,10 @@ import AddUserForm from './components/Admin/AddUserForm';
 import PhaseMilestones from './components/ProjectManager/PhaseMilestones';
 import OverView from './components/OverView';
 import RiskProfiling from './components/RiskProfiling';
+import ScopeAndStack from './components/ScopeAndStack';
+import Stakeholders from './components/Stakeholders';
+import SprintDetails from './components/Sprintdetail';
+import VersionHistory from './components/VersionHistory';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(null);
@@ -54,6 +58,10 @@ function App() {
         <Route path="phasemilestone" element={<PhaseMilestones />} />
         <Route path="overview" element={<OverView />} />
         <Route path="riskprofile" element={<RiskProfiling />} />
+        <Route path="scopeandstack" element={<ScopeAndStack />} />
+        <Route path="stakeholders" element={<Stakeholders />} />
+        <Route path="sprintdetails" element={<SprintDetails />} />
+        <Route path="VersionHistory" element={<VersionHistory/>} />
       </Route>
       <Route path="/adduserform" element={<AddUserForm />} />
 
@@ -82,24 +90,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={<Layout />}>
-    //       <Route path='admin/dashboard' element={<AdminDashboard />}>
-    //       </Route>
-    //       <Route path='/admin/dashboard/:Projectid' element={<AdminLayout/>}/>
-    //       <Route path="/auditor/dashboard" element={<AuditorDashboard />} />
-
-    //       <Route path="/client/dashboard" element={<ClientDashboard />} />
-
-    //       <Route path="/projectmanager" element={<ProjectManagerDashboard />} />
-    //       <Route path="/projectmanager/dashboard" element={<ProjectManagerDashboard />} />
-
-    //       <Route path='/userlogin' element={<UserLogin />} />
-
-    //     </Route>
-    //   </Routes>
-    // </Router>
+    
   );
 }
 

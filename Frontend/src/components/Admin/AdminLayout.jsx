@@ -19,6 +19,21 @@ function AdminLayout() {
                 <div style={{ margin: "2px" }}>
                     <Link to='riskprofile'>Risk Profiling</Link>
                 </div>
+                <div style={{ margin: "2px" }}>
+                    <Link to='scopeandstack'>Scope And Stack</Link>
+                </div>
+                <div style={{ margin: "2px" }}>
+                    <Link to='stakeholders'>Stackholders</Link>
+                </div>
+                <div style={{ margin: "2px" }}>
+                    <Link to='sprintdetails'>Sprint Details</Link>
+                </div>
+                <div style={{ margin: "2px" }}>
+                    <Link to='VersionHistory'>Version History</Link>
+                </div>
+                <div style={{ margin: "2px" }}>
+                    <Link to='AuditHistory'>Audit History</Link>
+                </div>
                 <div style={{ margin: "2px " }}>
                     <Link to=''></Link>
                 </div>
