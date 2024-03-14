@@ -4,7 +4,7 @@ import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
 import CreateProject from '../CreateProject'
 import Api from '../Api';
 
-function AdminLayout() {
+function AuditorLayout() {
     const [project, setProject] = useState();
     const location = useLocation();
     const { id } = useParams();
@@ -86,4 +86,4 @@ function AdminLayout() {
     )
 }
 
-export default AdminLayout
+export default AuditorLayout

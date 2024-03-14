@@ -3,19 +3,42 @@ import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
 import axios from "axios";
 import './../styling/scope.css';
+import Api from "./Api";
+import { useParams } from "react-router-dom";
 //not implemented backend logic for this
 const ScopeAndStack = () => {
+  const {id}=useParams();
   const [projectDetails, setProjectDetails] = useState({});
+  const [scopeandstackId,setScopeandstakeId]=useState('');
   const [changesMade, setChangesMade] = useState(false);
+  const userRole=localStorage.getItem("userRole");
 
   const handleSubmit = async () => {
-    try {
-      const { data } = await axios.post(
-        "http://localhost:8081/project/project_details",//not have this endpoint in backend still not mapped 
+    if( userRole=="Auditor")
         {
-          projectDetails,
+            alert("You don't have permission");
+            return
         }
-      );
+    try {
+      console.log(scopeandstackId); 
+      if(scopeandstackId==''){
+        const { data } = await Api.post(`/scopeandstake`, {
+          scope: projectDetails["scope"],
+          stake: projectDetails["stack"],
+          project: {
+            id: id
+          }
+        })
+      }
+      else{
+        const { data } = await Api.put(`/scopeandstake/${scopeandstackId}`, {
+          scope: projectDetails["scope"],
+          stake: projectDetails["stack"],
+          project: {
+            id: id
+          }
+        })
+      }
       setChangesMade(false);
       console.log(data);
     } catch (error) {
@@ -26,20 +49,8 @@ const ScopeAndStack = () => {
   const handleInputChange = (e, field) => {
     console.log(e, field);
     const newProjectDetails = { ...projectDetails };
-    if (field === "stack") {
-      console.log(e);
-      if (e == null) {
-        delete newProjectDetails[field];
-      } else {
-        newProjectDetails[field] = {};
-        newProjectDetails[field]["label"] = e.label;
-        newProjectDetails[field]["value"] = e.value;
-        console.log(newProjectDetails);
-      }
-    } else {
-      newProjectDetails[field] = e.target.value;
-    }
-
+    console.log(e.target.value);
+    newProjectDetails[field] = e.target.value;
     console.log(newProjectDetails);
     setProjectDetails(newProjectDetails);
     setChangesMade(true);
@@ -47,11 +58,9 @@ const ScopeAndStack = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8081/project/project_details"
-      );
-      const { data } = await response.json();
-      setProjectDetails(data[0]);
+      const response = await Api.get("/scopeandstake");
+      setProjectDetails(response?.data[0]);
+      setScopeandstakeId(response?.data[0].id);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -74,25 +83,24 @@ const ScopeAndStack = () => {
       <div className="scope-and-stack-wrapper">
         <div className="stack-wrapper">
           <label>Select Project's Technology</label>
-          <Dropdown
-            searchable={false}
-            className="dropdown"
-            value={{
-              label: projectDetails?.stack?.label,
-              value: projectDetails?.stack?.value,
-            }}
-            onChange={(item) => handleInputChange(item, "stack")}
-            options={[
-              { label: "Backend", value: "backend" },
-              { label: "Frontend", value: "frontend" },
-              { label: "Database", value: "database" },
-              { label: "Mobile-App", value: "mobile_app" },
-              {
-                label: "Infrasrtucture and Services",
-                value: "infrastructure_and_services",
-              },
-            ]}
-          />
+
+          <select
+            onChange={(e) => handleInputChange(e, "stack")}
+            value={projectDetails?.stake}
+            className="border w-full"
+          >
+            {[
+              "backend",
+              "frontend",
+              "database",
+              "mobile_app",
+              "infrastructure_and_services",
+            ].map((option) => (
+              <option key={option} value={option}>
+                {option.replace(/_/g, " ")}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="scope-wrapper">
           <label>Scope</label>

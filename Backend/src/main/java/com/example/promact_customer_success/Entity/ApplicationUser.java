@@ -20,15 +20,15 @@ public class ApplicationUser {
     @Column(name = "role")
     private String role;
 
+    @Column(name = "name")
+    private String name;
 
-    public ApplicationUser(Project project, String email, String role) {
+
+    public ApplicationUser(Project project, String email, String role, String name) {
         this.project = project;
         this.email = email;
         this.role = role;
-    }
-    public ApplicationUser( String email, String role) {
-        this.email = email;
-        this.role = role;
+        this.name = name;
     }
 
     public ApplicationUser() {
@@ -45,6 +45,14 @@ public class ApplicationUser {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(Integer id) {

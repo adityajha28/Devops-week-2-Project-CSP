@@ -3,16 +3,20 @@ import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
 import "../styling/overview.css";
 import axios from "axios";
+import Api from "./Api";
+import { useParams } from "react-router-dom";
 
 // Component for managing project overview
 const OverView = () => {
+  const { id } = useParams();
   // State variables for tracking changes, budget mode, and project details
-  const [changesMade, setChangesMade] = useState(false);
+  const [overviewId, setOverviewId] = useState('');
   const [projectBrief, setProjectBrief] = useState('');
   const [purpose, setPurpose] = useState('');
   const [goals, setGoals] = useState('');
   const [objectives, setObjectives] = useState('');
-  
+  const [budget, setBudget] = useState('');
+  const userRole=localStorage.getItem("userRole");
 
   const handleProjectBriefChange = (e) => {
     setProjectBrief(e.target.value);
@@ -29,35 +33,62 @@ const OverView = () => {
   const handleObjectivesChange = (e) => {
     setObjectives(e.target.value);
   };
+  const handleBudget = (e) => {
+    setBudget(e.target.value);
+  };
 
   // Function to handle form submission
   const handleSubmit = async () => {
+    if( userRole=="Auditor")
+    {
+        alert("You don't have permission");
+        return
+    }
+    
     try {
       console.log("submit clicked");
       //bacekend functionality for this is remaining
-      const { data } = await axios.post(
-        "http://localhost:8081/project/project_details",// still not created endpoint for this it is random endpoint 
-        {
-          projectDetails,
-        }
-      );
+      if (overviewId == '') {
+        const data = await Api.post(`/projectoverviews`, {
+          brief: projectBrief,
+          purpose: purpose,
+          objectives: objectives,
+          budget: budget,
+          goals: goals,
+          project: {
+            id: id
+          }
+        });
+        console.log(data);
+      }
+      else {
+        const data = await Api.put(`/projectoverviews/${overviewId}`, {
+          brief: projectBrief,
+          purpose: purpose,
+          objectives: objectives,
+          budget: budget,
+          goals: goals,
+          project: {
+            id: id
+          }
+        });
+        console.log(data);
+      }
       setChangesMade(false);
-      console.log(data);
     } catch (error) { }
   };
   // Function to fetch data from the backend
   const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:8081/project/project_details"
-      );
-
-      const { data } = await response.json();
-      setProjectDetails(data[0]);
-      console.log("overview", data);
-    } catch (error) {
+    Api.get("/projectoverviews").then((response) => {
+      setProjectBrief(response?.data[0]?.brief);
+      setPurpose(response?.data[0]?.purpose)
+      setObjectives(response.data[0]?.objectives)
+      setBudget(response.data[0]?.budget);
+      setGoals(response.data[0]?.goals);
+      setOverviewId(response.data[0]?.id);
+    }).catch((error) => {
       console.log(error);
-    }
+    })
   };
 
   useEffect(() => {
@@ -118,6 +149,18 @@ const OverView = () => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
             value={objectives}
             onChange={handleObjectivesChange}
+            rows={4}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="budget" className="block text-sm font-medium text-gray-700">
+            Budget
+          </label>
+          <input
+            id="budget"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            value={budget}
+            onChange={handleBudget}
             rows={4}
           />
         </div>

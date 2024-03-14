@@ -8,6 +8,7 @@ export default function SprintDetails() {
     const [sprintDetails, setSprintDetails] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
     const { id } = useParams();
+    const userRole=localStorage.getItem("userRole");
 // Define table headers
     const tableHeaders = ['Sprint Number', 'Start Date', 'End Date', 'Status', 'Comments', 'Action'];
   // Fetch sprint details on component mount
@@ -47,6 +48,11 @@ export default function SprintDetails() {
 
     // Function to delete sprint detail
     const handleDelete = async (rowData, index) => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
@@ -62,10 +68,20 @@ export default function SprintDetails() {
     };
 // Function to handle edit of sprint detail
     const handleEdit = (index) => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         setEditedRowIndex(index);
     };
 // Function to add a new row for sprint detail
     const handleAddRow = () => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         setSprintDetails([...sprintDetails, {
             id: null,
             sprintNumber: "",

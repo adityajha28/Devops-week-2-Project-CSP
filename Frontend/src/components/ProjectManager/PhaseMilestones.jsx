@@ -9,6 +9,8 @@ export default function PhaseMilestones() {
     const [milestones, setMilestones] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
     const { id } = useParams();
+    const userRole=localStorage.getItem("userRole");
+    
  // Headers for the table
     const tableHeaders = ['Title', 'Start Date', 'Completion Date', 'Approval Date', 'Status', 'Revised Completion Date', 'Comments', 'Action'];
  // Fetch milestones on component mount
@@ -35,6 +37,7 @@ export default function PhaseMilestones() {
     };
  // Handle saving milestone data
     const handleSave = async (rowData) => {
+        
         try {
             setEditedRowIndex(-1);
             if (rowData.id) {
@@ -50,6 +53,11 @@ export default function PhaseMilestones() {
     };
      // Handle deleting a milestone
     const handleDelete = async (rowData, index) => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
@@ -64,13 +72,22 @@ export default function PhaseMilestones() {
         setEditedRowIndex(-1);
     };
         // Handle editing a milestone
-
     const handleEdit = (index) => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         setEditedRowIndex(index);
     };
     
     // Handle adding a new row for a milestone
     const handleAddRow = () => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         setMilestones([...milestones, {
             id: null,
             title: "",

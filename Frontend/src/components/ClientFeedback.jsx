@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from 'monday-ui-react-core';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Api from './Api';
 
 const ClientFeedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [editedRowIndex, setEditedRowIndex] = useState();
   const { id } = useParams();
+  const userRole=localStorage.getItem("userRole");
   const tableHeaders = ['Feedback Type', 'Date Received', 'Detailed Feedback', 'Action Taken', 'Closure Date','Actions'];
 
   useEffect(() => {
+    console.log(userRole);
     fetchFeedbacks();
   }, []);
 
   const fetchFeedbacks = async () => {
     try {
-      const response = await axios.get('/clientfeedbacks');
+      const response = await Api.get('/clientfeedbacks');
       setFeedbacks(response.data);
     } catch (error) {
       console.error('Error fetching client feedbacks:', error);
@@ -23,6 +26,7 @@ const ClientFeedback = () => {
   };
 
   const handleChange = (index, type, value) => {
+
     const updatedFeedbacks = [...feedbacks];
     updatedFeedbacks[index][type] = value;
     setFeedbacks(updatedFeedbacks);
@@ -32,9 +36,9 @@ const ClientFeedback = () => {
     try {
         setEditedRowIndex(-1);
       if (rowData.id) {
-        await axios.put(`/clientfeedbacks/${rowData.id}`, rowData);
+        await Api.put(`/clientfeedbacks/${rowData.id}`, rowData);
       } else {
-        await axios.post('/clientfeedbacks', rowData);
+        await Api.post('/clientfeedbacks', rowData);
       }
       
       fetchFeedbacks();
@@ -44,10 +48,15 @@ const ClientFeedback = () => {
   };
 
   const handleDelete = async (rowData, index) => {
+    if(userRole=="Auditor" || userRole=="Admin" || userRole=="ProjectManager"){
+        alert("You don't have permission");
+        return
+    }
+    
     try {
       const confirmation = window.confirm('Do you really want to delete it?');
       if (confirmation) {
-        await axios.delete(`/clientfeedbacks/${rowData.id}`);
+        await Api.delete(`/clientfeedbacks/${rowData.id}`);
         const updatedFeedbacks = [...feedbacks];
         updatedFeedbacks.splice(index, 1);
         setFeedbacks(updatedFeedbacks);
@@ -59,6 +68,10 @@ const ClientFeedback = () => {
   };
 
   const handleEdit = (index) => {
+    if(userRole=="Auditor" || userRole=="Admin" || userRole=="ProjectManager"){
+        alert("You don't have permission");
+        return
+    }
     setEditedRowIndex(index);
   };
 

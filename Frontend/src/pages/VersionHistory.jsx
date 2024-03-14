@@ -7,6 +7,7 @@ export default function VersionHistory() {
     const [versions, setVersions] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
     const { id } = useParams();
+    const userRole=localStorage.getItem("userRole");
 
     const tableHeaders = ['Version', 'Change Type', 'Change Reason', 'Created By', 'Revision Date', 'Approval Date', 'Approved By', 'Action'];
 
@@ -45,6 +46,11 @@ export default function VersionHistory() {
     };
 
     const handleDelete = async (rowData, index) => {
+        if( userRole=="Auditor" || userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
@@ -60,10 +66,20 @@ export default function VersionHistory() {
     };
 
     const handleEdit = (index) => {
+        if( userRole=="Auditor" || userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         setEditedRowIndex(index);
     };
 
     const handleAddRow = () => {
+        if( userRole=="Auditor" || userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         setVersions([...versions, {
             id: null,
             version: "",

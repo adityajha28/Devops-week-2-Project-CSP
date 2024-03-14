@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 export default function Stakeholders() {
     const [stakeholders, setStakeholders] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
-    const { id } = useParams
-
+    const { id } = useParams();
+    const userRole=localStorage.getItem("userRole");
 
     const tableHeaders = ['Title', 'Name', 'Contact', 'Action'];
 
@@ -32,6 +32,7 @@ export default function Stakeholders() {
 
     const handleSave = async (rowData) => {
         try {
+            console.log("newdata",rowData);
             setEditedRowIndex(-1);
             if (rowData.id) {
                 await Api.put(`/stakeholders/${rowData.id}`, rowData);
@@ -46,6 +47,11 @@ export default function Stakeholders() {
     };
 
     const handleDelete = async (rowData, index) => {
+        if( userRole=="Client" || userRole=="ProjectManager")
+        {
+            alert("You don't have permission");
+            return
+        }
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
@@ -61,12 +67,16 @@ export default function Stakeholders() {
     };
 
     const handleEdit = (index) => {
+        if( userRole=="Client" || userRole=="ProjectManager")
+        {
+            alert("You don't have permission");
+            return
+        }
         setEditedRowIndex(index);
     };
 
     const handleAddRow = () => {
         setStakeholders([...stakeholders, {
-            id: null,
             title: "",
             name: "",
             contact: "",

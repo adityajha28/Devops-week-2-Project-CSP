@@ -3,10 +3,12 @@ import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, La
 import Api from "./Api";// Importing API utility for making HTTP requests
 import { useParams } from "react-router-dom";
 
+
 export default function EscalationMatrix() {
     const [data, setData] = useState([]);// State variable for storing data fetched from the API
     const [editedRowIndex, setEditedRowIndex] = useState(-1);// State variable to track the index of the row being edited
     const { id } = useParams();
+    const userRole=localStorage.getItem("userRole");
     const tableNames = ['Escalation Level', 'Role', 'Name', 'Type', 'Action']; // Array containing table column names
 
 
@@ -29,7 +31,7 @@ export default function EscalationMatrix() {
         setData(updatedDate);
     }
 
-    const handleSave = async (rowData) => {
+    const handleSave = async (rowData) => { 
         // Function to handle saving data
 
         console.log(rowData);
@@ -55,6 +57,10 @@ export default function EscalationMatrix() {
     }
 
     const handleDelete = async (rowDate, index) => {
+        if(userRole=="Auditor"){
+            alert("You don't have permission");
+            return
+        }
         // Function to handle deleting a row
 
         const getConfimation = confirm("Do you really want to delete it");
@@ -76,6 +82,10 @@ export default function EscalationMatrix() {
     }
 
     const handleAddRow = () => {
+        if(userRole=="Auditor"){
+            alert("You don't have permission");
+            return
+        }
         // Function to handle adding a new row
         setData([...data, {
             id: "", escalationLevel: "", role: "", name: "", type: "", project: {
@@ -85,6 +95,11 @@ export default function EscalationMatrix() {
     }
 
     const handleEdit = (index) => {
+
+        if(userRole=="Auditor"){
+            alert("You don't have permission");
+            return
+        }
         // Function to handle editing a row
 
         setEditedRowIndex(index);// Set the index of the row being edited

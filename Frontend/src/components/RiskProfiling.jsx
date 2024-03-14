@@ -8,6 +8,7 @@ export default function RiskProfiling() {
     const [riskProfiles, setRiskProfiles] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
     const { id } = useParams();
+    const userRole=localStorage.getItem("userRole");
     // Table headers for risk profiles table
     const tableHeaders = ['Risk Type', 'Description', 'Severity', 'Impact', 'Remedial Steps', 'Status', 'Closure Date', 'Action'];
 
@@ -31,6 +32,7 @@ export default function RiskProfiling() {
     };
 // Function to save risk profile data
     const handleSave = async (rowData) => {
+       
         try {
             if (rowData.id) {
                 await Api.put(`/riskprofilings/${rowData.id}`, rowData);
@@ -46,6 +48,11 @@ export default function RiskProfiling() {
 
     // Function to delete risk profile data
     const handleDelete = async (rowData, index) => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
@@ -62,11 +69,21 @@ export default function RiskProfiling() {
 
     // Function to handle edit action
     const handleEdit = (index) => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         setEditedRowIndex(index);
     };
 
     // Function to add a new row for risk profiles
     const handleAddRow = () => {
+        if( userRole=="Auditor")
+        {
+            alert("You don't have permission");
+            return
+        }
         setRiskProfiles([...riskProfiles, {
             id: null,
             riskType: "",

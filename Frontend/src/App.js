@@ -28,9 +28,11 @@ import VersionHistory from './pages/VersionHistory';
 import AuditHistoryComponent from './components/Auditor/AuditHistory';
 import ClientFeedbackForm from './components/Client/ClientFeedbackForm';
 import ClientFeedback from './components/ClientFeedback';
+import AuditorLayout from './components/Auditor/AuditorLayout';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(null);
+
   const [userRole, setUserRole] = useState('');
   useEffect(() => {
     const userRole = localStorage.getItem("userRole")
@@ -74,8 +76,20 @@ function App() {
 
   const auditorRoutes = userRole == "Auditor" && (
     <>
-      <Route index element={<AuditorDashboard />} />
-      <Route path='/escalationmatrix' element={<EscalationMatrix />} />
+      <Route index element={<AuditorDashboard />} />  
+      <Route path="/:id" element={<AuditorLayout />}>
+        <Route index element={<OverView />} />
+        <Route path="escalationmatrix" element={<EscalationMatrix />} />
+        <Route path="phasemilestone" element={<PhaseMilestones />} />
+        <Route path="overview" element={<OverView />} />
+        <Route path="riskprofile" element={<RiskProfiling />} />
+        <Route path="scopeandstack" element={<ScopeAndStack />} />
+        <Route path="stakeholders" element={<Stakeholders />} />
+        <Route path="sprintdetails" element={<SprintDetails />} />
+        <Route path="VersionHistory" element={<VersionHistory/>} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
+        <Route path="clientfeedback" element={<ClientFeedback/>}/>
+      </Route>
     </>
   );
 

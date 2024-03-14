@@ -8,7 +8,7 @@ export default function AuditHistoryComponent() {
     const { id } = useParams();
     const [history, setHistory] = useState([]); // State variable for storing audit history data
     const [editedRowIndex, setEditedRowIndex] = useState(); // State variable to track the index of the row being edited
-
+    const userRole=localStorage.getItem("userRole");
     const tableHeaders = ['Date of Audit', 'Reviewed By', 'Status', 'Reviewed Section', 'Comment Queries', 'Action Item', 'Action'];
     // Effect hook to fetch audit history data from the API when the component mounts
     useEffect(() => {
@@ -51,6 +51,11 @@ export default function AuditHistoryComponent() {
     };
 
     const handleDelete = async (rowData, index) => {
+        if( userRole=="ProjectManger"|| userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         try {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
@@ -66,10 +71,26 @@ export default function AuditHistoryComponent() {
     };
 
     const handleEdit = (index) => {
+        if( userRole=="ProjectManger"|| userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         setEditedRowIndex(index);
     };
 
-    const handleAddRow = () => {
+    const handleAddRow = () =>
+     {if( userRole=="ProjectManger"|| userRole=="Client")
+    {
+        alert("You don't have permission");
+        return
+    }
+
+        if( userRole=="ProjectManger"|| userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         console.log("new");
         setHistory([...history, {
             id: null,

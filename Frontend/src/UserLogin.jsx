@@ -10,13 +10,21 @@ function UserLogin() {
   const fetchUserRole = async () => {
     try {
       if (isAuthenticated) {
-        // const response = await Api.get(`application-user/${user.email}`);
-        await Api.put(`/application-user/${user.email}`, {
-          name: user.name, email: user.email, role: "Admin"
-        });
-        localStorage.setItem("userRole", "Admin"|| "Client");
+        const response = await Api.get(`application-user/${user.email}`);
+        console.log(response.data.role);
+        if (response.data.role != '') {
+          localStorage.setItem("userRole", response.data.role || "Client");
+        } else {
+          await Api.put(`/application-user/${user.email}`, {
+            name: user.name,
+            email: user.email,
+            role: "Admin"
+          });
+          localStorage.setItem("userRole", "Admin" || "Client");
+        }
         navigate('/');
       }
+
     } catch (error) {
       console.error("Error fetching user role:", error);
     }

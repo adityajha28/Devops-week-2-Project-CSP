@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 // Sidebar component
 const Sidebar = () => {
   const navigate = useNavigate();
+  const userRole = localStorage.getItem("userRole");
   const [showModel, setShowModel] = useState(false);
 
   const handleNavigation = () => {
@@ -15,10 +16,11 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="sidebar-wrapper"> {/* Wrapper div for the sidebar */}
-      <Box className="sidebar-menu-box"> {/* Box component for the sidebar menu */}
-        <button className="" style={{ margin: "2px" }} onClick={(e) => { setShowModel(true) }}>Create Project</button>
-        <Flex justify="Center" gap={10}> {/* Flex container with center alignment and gap */}
+    <div className="sidebar-wrapper">
+      <Box className="sidebar-menu-box"> 
+        {(userRole == "Admin" || userRole == "Auditor") ?
+          <button className="" style={{ margin: "2px" }} onClick={(e) => { setShowModel(true) }}>Create Project</button> : null
+        } <Flex justify="Center" gap={10}> 
           <Menu>
             <MenuItem title="Projects" onClick={(e) => { handleNavigation() }} />
             <MenuItem title="Projects Managers" />
@@ -31,4 +33,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar; // Exporting Sidebar component
+export default Sidebar;
