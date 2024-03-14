@@ -8,18 +8,33 @@ import axios from "axios";
 const OverView = () => {
   // State variables for tracking changes, budget mode, and project details
   const [changesMade, setChangesMade] = useState(false);
-  const [budgetMode, setBudgetMode] = useState({});
-  const [projectDetails, setProjectDetails] = useState({
-    overview: "",
-    budget: {},
-    timeline: "",
-  });
+  const [projectBrief, setProjectBrief] = useState('');
+  const [purpose, setPurpose] = useState('');
+  const [goals, setGoals] = useState('');
+  const [objectives, setObjectives] = useState('');
+  
+
+  const handleProjectBriefChange = (e) => {
+    setProjectBrief(e.target.value);
+  };
+
+  const handlePurposeChange = (e) => {
+    setPurpose(e.target.value);
+  };
+
+  const handleGoalsChange = (e) => {
+    setGoals(e.target.value);
+  };
+
+  const handleObjectivesChange = (e) => {
+    setObjectives(e.target.value);
+  };
 
   // Function to handle form submission
   const handleSubmit = async () => {
     try {
       console.log("submit clicked");
-     //bacekend functionality for this is remaining
+      //bacekend functionality for this is remaining
       const { data } = await axios.post(
         "http://localhost:8081/project/project_details",// still not created endpoint for this it is random endpoint 
         {
@@ -28,22 +43,9 @@ const OverView = () => {
       );
       setChangesMade(false);
       console.log(data);
-    } catch (error) {}
+    } catch (error) { }
   };
-// Function to handle input change
-  const handleInputChange = (e, field) => {
-    // console.log(e);
-    const newProjectDetails = { ...projectDetails };
-    if (field === "Fixed" || field === "Monthly") {
-      newProjectDetails["budget"] = { type: field, type_value: e.target.value };
-    } else {
-      newProjectDetails[field] = e.target.value;
-    }
-    console.log(newProjectDetails);
-    setProjectDetails(newProjectDetails);
-    setChangesMade(true);
-  };
- // Function to fetch data from the backend
+  // Function to fetch data from the backend
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -64,82 +66,59 @@ const OverView = () => {
 
   return (
     <>
-      {changesMade && (
-        <div className="save-button-container">
-          <button onClick={handleSubmit} className="save-button">
-            save
-          </button>
-        </div>
-      )}
-      <div className="overview-section-wrapper">
-        <div className="overview-div">
-          <label>Project Overview</label>
+
+      <div className="w-20 bg-blue">
+        <button onClick={handleSubmit} className="">
+          save
+        </button>
+      </div>
+      <div className="max-w-lg">
+        <div className="mb-4">
+          <label htmlFor="projectBrief" className="block text-sm font-medium text-gray-700">
+            Project Brief
+          </label>
           <textarea
-            value={projectDetails?.overview}
-            onChange={(e) => handleInputChange(e, "overview")}
-          ></textarea>
+            id="projectBrief"
+            className="mt-1 border block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            value={projectBrief}
+            onChange={handleProjectBriefChange}
+            rows={4}
+          />
         </div>
-        <div className="budget-div">
-          <div className="dropdown-div">
-            <label> Project Budget</label>
-            <Dropdown
-              className="dropdown"
-              value={{
-                label: projectDetails.budget.type,
-                value: projectDetails.budget.type,
-              }}
-              searchable={false}
-              onChange={(budgetMode) => {
-                console.log(budgetMode);
-                const budget = {
-                  type: budgetMode.label,
-                  type_value: "",
-                };
-                setProjectDetails({ ...projectDetails, budget: budget });
-              }}
-              options={[
-                { label: "Fixed", value: "Fixed" },
-                { label: "Monthly", value: "Monthly" },
-              ]}
-            />
-          </div>
-          <div className="dropdown-input-div">
-            {projectDetails?.budget.type &&
-              (projectDetails.budget.type === "Fixed" ? (
-                <>
-                  <label> Duration (in Months)</label>
-                  <input
-                    type="text"
-                    onChange={(e) => handleInputChange(e, "duration")}
-                    value={
-                      projectDetails.budget?.type == "Fixed"
-                        ? projectDetails.budget?.type_value
-                        : ""
-                    }
-                  />
-                </>
-              ) : (
-                <>
-                  <label> Budgeted Hours</label>
-                  <input
-                    type="text"
-                    onChange={(e) => handleInputChange(e, "budgeted-hours")}
-                    value={
-                      projectDetails.budget?.type === "Monthly"
-                        ? projectDetails.budget?.type_value
-                        : ""
-                    }
-                  />
-                </>
-              ))}
-          </div>
+        <div className="mb-4">
+          <label htmlFor="purpose" className="block text-sm font-medium text-gray-700">
+            Purpose
+          </label>
+          <textarea
+            id="purpose"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            value={purpose}
+            onChange={handlePurposeChange}
+            rows={4}
+          />
         </div>
-        <div className="timeline-div">
-          <label> Timeline </label>
-          <input
-            value={projectDetails.timeline}
-            type="text"
-            onChange={(e) => handleInputChange(e, "timeline")}
+        <div className="mb-4">
+          <label htmlFor="goals" className="block text-sm font-medium text-gray-700">
+            Goals
+          </label>
+          <textarea
+            id="goals"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            value={goals}
+            onChange={handleGoalsChange}
+            rows={4}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="objectives" className="block text-sm font-medium text-gray-700">
+            Objectives
+          </label>
+          <textarea
+            id="objectives"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            value={objectives}
+            onChange={handleObjectivesChange}
+            rows={4}
           />
         </div>
       </div>

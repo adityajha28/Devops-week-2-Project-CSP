@@ -18,13 +18,13 @@ public class OperationalEscalationMatrix {
     @Column(name = "escalation_level")
     private Integer escalationLevel;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name",  length = 255)
     private String name;
 
-    @Column(name = "role", nullable = false, length = 255)
+    @Column(name = "role",  length = 255)
     private String role;
 
-    @Column(name="type", nullable = false)
+    @Column(name="type")
     private String type;
     // Constructors
 

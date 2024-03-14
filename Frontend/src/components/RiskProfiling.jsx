@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";
+import { useParams } from "react-router-dom";
 // Component for managing risk profiling
 export default function RiskProfiling() {
     // State variables for risk profiles and edited row index
     const [riskProfiles, setRiskProfiles] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
-
+    const { id } = useParams();
     // Table headers for risk profiles table
     const tableHeaders = ['Risk Type', 'Description', 'Severity', 'Impact', 'Remedial Steps', 'Status', 'Closure Date', 'Action'];
 
@@ -76,7 +77,7 @@ export default function RiskProfiling() {
             status: "",
             closureDate: "",
             project: {
-                id: 1
+                id: id
             }
         }]);
     };
@@ -92,15 +93,18 @@ export default function RiskProfiling() {
                 editedRowIndex={editedRowIndex}
                 handleEdit={handleEdit}
                 handleSave={handleSave}
+                projectId={id}
             />
         </div>
     );
 }
 // Dynamic Table component to render the risk profiles table
-const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
+const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave ,projectId }) => {
+    useEffect(() => {
+    }, [RiskProfiling])
     return (
         <>
-            <Button onClick={handleAddRow} style={{ marginBottom: "8px" }}>Add Row</Button>
+            <Button onClick={handleAddRow}  className="w-20" style={{ marginBottom: "8px" }}>Add Row</Button>
             <Table columns={[
                 { id: 'riskType', title: 'Risk Type' },
                 { id: 'description', title: 'Description' },
@@ -117,16 +121,24 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {riskProfiles.map((row, index) => (
+                    {riskProfiles.map((row, index) => 
+                     row?.project?.id == projectId ?
+                    (
                         <TableRow key={index}>
                             <TableCell>
-                                <input
-                                    type="text"
+                                
+                                 <select
+                                    onChange={(e) => handleChange(index, "riskType",  e.target.value)}
                                     value={row.riskType}
-                                    style={{ "border": "none" }}
-                                    onChange={(e) => handleChange(index, "riskType", e.target.value)}
                                     readOnly={editedRowIndex !== index}
-                                />
+                                    className="border-none w-full"
+                                >
+                                    <option value="finacial">Financial</option>
+                                    <option value="operation">Operational</option>
+                                    <option value="technical">Technical</option>
+                                    <option value="HR">HR</option> 
+                                    <option value="External">External</option>    
+                                </select>
                             </TableCell>
                             <TableCell>
                                 <input
@@ -138,22 +150,32 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                                 />
                             </TableCell>
                             <TableCell>
-                                <input
-                                    type="text"
+                                
+                                  <select
+                                    onChange={(e) => handleChange(index, "severity",  e.target.value)}
                                     value={row.severity}
-                                    style={{ "border": "none" }}
-                                    onChange={(e) => handleChange(index, "severity", e.target.value)}
                                     readOnly={editedRowIndex !== index}
-                                />
+                                    className="border-none w-full"
+                                >
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                    
+                                </select>
                             </TableCell>
                             <TableCell>
-                                <input
-                                    type="text"
+                            
+                                <select
+                                    onChange={(e) => handleChange(index, "impact",  e.target.value)}
                                     value={row.impact}
-                                    style={{ "border": "none" }}
-                                    onChange={(e) => handleChange(index, "impact", e.target.value)}
                                     readOnly={editedRowIndex !== index}
-                                />
+                                    className="border-none w-full"
+                                >
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                    
+                                </select>
                             </TableCell>
                             <TableCell>
                                 <input
@@ -193,7 +215,7 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                                 )}
                             </TableCell>
                         </TableRow>
-                    ))}
+                    ):null)}
                 </TableBody>
             </Table>
         </>

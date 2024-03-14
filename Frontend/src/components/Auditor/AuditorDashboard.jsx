@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-// import { toast } from 'react-toastify';
-// import { RingLoader } from 'react-spinners'; // Import the loader
-// import 'react-toastify/dist/ReactToastify.css';
+
 
 const AuditorDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
-  const [token, setToken] = useState(null);
+  const [ setToken] = useState(null);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -23,7 +21,6 @@ const AuditorDashboard = () => {
     return (
       <div className="flex items-center justify-center h-screen">
         Loading
-        {/* <RingLoader color="#36D7B7" size={100} loading={isLoading} /> */}
       </div>
     );
   }

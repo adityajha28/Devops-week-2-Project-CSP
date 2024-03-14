@@ -21,17 +21,50 @@ public class    Project {
 
     @NotNull
     private String description;
-
+    private String Status;
     // Constructors, getters, and setters
+
+    private String ProjectManger;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public String getProjectManger() {
+        return ProjectManger;
+    }
+
+    public void setProjectManger(String projectManger) {
+        ProjectManger = projectManger;
+    }
+
+    public String getMember() {
+        return Member;
+    }
+
+    public void setMember(String member) {
+        Member = member;
+    }
+
+
+    private String Member;
 
     public Project() {
         // Default constructor required by JPA
     }
 
-    public Project(String name, String description) {
+    public Project(String name, String description, String status, String projectManger, String member) {
         this.name = name;
         this.description = description;
+        Status = status;
+        ProjectManger = projectManger;
+        Member = member;
     }
+
 
     // Getters and setters
 
@@ -46,6 +79,8 @@ public class    Project {
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         this.name = name;

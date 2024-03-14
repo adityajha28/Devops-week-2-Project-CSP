@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
-import Api from "../Api";// Import API utility for making HTTP requests
+import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
+import Api from "../Api";
+import { useParams } from "react-router-dom";
 
 //component for audit history
 export default function AuditHistoryComponent() {
+    const { id } = useParams();
     const [history, setHistory] = useState([]); // State variable for storing audit history data
     const [editedRowIndex, setEditedRowIndex] = useState(); // State variable to track the index of the row being edited
 
-    const tableHeaders = ['Date of Audit', 'Reviewed By', 'Status', 'Reviewed Section', 'Comment Queries', 'Action Item','Action'];
- // Effect hook to fetch audit history data from the API when the component mounts
+    const tableHeaders = ['Date of Audit', 'Reviewed By', 'Status', 'Reviewed Section', 'Comment Queries', 'Action Item', 'Action'];
+    // Effect hook to fetch audit history data from the API when the component mounts
     useEffect(() => {
         fetchAuditHistory();
     }, []);
-            
+
+    // Function to fetch audit history data from the API
     const fetchAuditHistory = async () => {
-        // Function to fetch audit history data from the API
         try {
             const response = await Api.get("/audithistory");// Send GET request to the audithistory endpoint
             setHistory(response.data);// Set the fetched audit history data to the state variable
@@ -25,7 +27,7 @@ export default function AuditHistoryComponent() {
     };
 
     const handleChange = (index, type, value) => {
-                // Function to handle changes in input fields
+        // Function to handle changes in input fields
 
         const updatedHistory = [...history]; // Create a copy of the audit history data
         updatedHistory[index][type] = value;// Update the specific field in the copied data array
@@ -33,17 +35,16 @@ export default function AuditHistoryComponent() {
     };
 
     const handleSave = async (rowData) => {
-        
-     // Function to handle saving edited or new audit history data
+
+        // Function to handle saving edited or new audit history data
         try {
-            setEditedRowIndex(-1);// Reset the edited row index
+            setEditedRowIndex(-1);
             if (rowData.id) {
-                await Api.put(`/audithistory/${rowData.id}`, rowData);// If the row has an ID, update it via PUT request
+                await Api.put(`/audithistory/${rowData.id}`, rowData);
             } else {
-                await Api.post("/audithistory", rowData);// If the row does not have an ID, create it via POST request
-            
+                await Api.post("/audithistory", rowData);
             }
-            fetchAuditHistory();    
+            fetchAuditHistory();
         } catch (error) {
             console.error("Error saving audit history:", error);
         }
@@ -69,6 +70,7 @@ export default function AuditHistoryComponent() {
     };
 
     const handleAddRow = () => {
+        console.log("new");
         setHistory([...history, {
             id: null,
             dateOfAudit: "",
@@ -76,7 +78,10 @@ export default function AuditHistoryComponent() {
             status: "",
             reviewedSection: "",
             commentQueries: "",
-            actionItem: ""
+            actionItem: "",
+            project:{
+                id:id
+            }
         }]);
     };
 
@@ -91,15 +96,23 @@ export default function AuditHistoryComponent() {
                 editedRowIndex={editedRowIndex}
                 handleEdit={handleEdit}
                 handleSave={handleSave}
+                projectId={id}
             />
         </div>
     );
 }
 
-const DynamicTable = ({ tableHeaders, history, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
+const DynamicTable = ({ tableHeaders, history, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave, projectId }) => {
+
+
+    useEffect(() => {
+      }, [history])
     return (
         <>
-            <Button onClick={handleAddRow} style={{ marginBottom: "8px" }}>Add Row</Button>
+            <div className="flex flex-row">
+                <button onClick={handleAddRow} className="w-[10%] mb-2">Add Row</button>
+            </div>
+
             <div>
                 <Table columns={tableHeaders}>
                     <TableHeader>
@@ -110,64 +123,66 @@ const DynamicTable = ({ tableHeaders, history, handleAddRow, handleChange, handl
                         }
                     </TableHeader>
                     <TableBody>
-                        {history.map((row, index) => (
-                            <TableRow key={index}>
+                            {history.map((row, index) =>
 
-                                <TableCell >
-                                    <input
-                                        onChange={(e) => handleChange(index, "dateOfAudit", e.target.value)}
-                                        type="date" style={{ "border": "none" }} value={row?.dateOfAudit}
-                                        readOnly={editedRowIndex !== index}
-                                    />
-                                </TableCell>
-                                <TableCell >
-                                    <input
-                                        onChange={(e) => handleChange(index, "reviewedBy", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row?.reviewedBy}
-                                        readOnly={editedRowIndex !== index}
-                                    />
-                                </TableCell>
-                                <TableCell >
-                                    <input
-                                        onChange={(e) => handleChange(index, "status", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row?.status}
-                                        readOnly={editedRowIndex !== index}
-                                    />
-                                </TableCell>
-                                <TableCell >
-                                    <input
-                                        onChange={(e) => handleChange(index, "reviewedSection", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row?.reviewedSection}
-                                        readOnly={editedRowIndex !== index}
-                                    />
-                                </TableCell>
-                                <TableCell >
-                                    <input
-                                        onChange={(e) => handleChange(index, "commentQueries", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row?.commentQueries}
-                                        readOnly={editedRowIndex !== index}
-                                    />
-                                </TableCell>
-                                <TableCell >
-                                    <input
-                                        onChange={(e) => handleChange(index, "actionItem", e.target.value)}
-                                        type="text" style={{ "border": "none" }} value={row?.actionItem}
-                                        readOnly={editedRowIndex !== index}
-                                    />
-                                </TableCell>
+                                row?.project?.id == projectId ? (
+                                    <TableRow key={index}>
+                                        <TableCell >
+                                            <input
+                                                onChange={(e) => handleChange(index, "dateOfAudit", e.target.value)}
+                                                type="date" style={{ "border": "none" }} value={row?.dateOfAudit}
+                                                readOnly={editedRowIndex !== index}
+                                            />
+                                        </TableCell>
+                                        <TableCell >
+                                            <input
+                                                onChange={(e) => handleChange(index, "reviewedBy", e.target.value)}
+                                                type="text" style={{ "border": "none" }} value={row?.reviewedBy}
+                                                readOnly={editedRowIndex !== index}
+                                            />
+                                        </TableCell>
+                                        <TableCell >
+                                            <input
+                                                onChange={(e) => handleChange(index, "status", e.target.value)}
+                                                type="text" style={{ "border": "none" }} value={row?.status}
+                                                readOnly={editedRowIndex !== index}
+                                            />
+                                        </TableCell>
+                                        <TableCell >
+                                            <input
+                                                onChange={(e) => handleChange(index, "reviewedSection", e.target.value)}
+                                                type="text" style={{ "border": "none" }} value={row?.reviewedSection}
+                                                readOnly={editedRowIndex !== index}
+                                            />
+                                        </TableCell>
+                                        <TableCell >
+                                            <input
+                                                onChange={(e) => handleChange(index, "commentQueries", e.target.value)}
+                                                type="text" style={{ "border": "none" }} value={row?.commentQueries}
+                                                readOnly={editedRowIndex !== index}
+                                            />
+                                        </TableCell>
+                                        <TableCell >
+                                            <input
+                                                onChange={(e) => handleChange(index, "actionItem", e.target.value)}
+                                                type="text" style={{ "border": "none" }} value={row?.actionItem}
+                                                readOnly={editedRowIndex !== index}
+                                            />
+                                        </TableCell>
 
-                                <TableCell>
-                                    {editedRowIndex !== index ? (
-                                        <>
-                                            <button onClick={() => handleEdit(index)}>Edit</button>
-                                            <button onClick={() => handleDelete(row, index)}>Delete</button>
-                                        </>
-                                    ) : (
-                                        <button onClick={() => handleSave(row)}>Save</button>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                                        <TableCell>
+                                            {editedRowIndex !== index ? (
+                                                <>
+                                                    <button onClick={() => handleEdit(index)}>Edit</button>
+                                                    <button onClick={() => handleDelete(row, index)}>Delete</button>
+                                                </>
+                                            ) : (
+                                                <button onClick={() => handleSave(row)}>Save</button>
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                ) : null
+                            )}
                     </TableBody>
                 </Table>
             </div>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
-import Api from "./Api";
+import Api from "../components/Api";
+import { useParams } from "react-router-dom";
 
 export default function VersionHistory() {
     const [versions, setVersions] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
+    const { id } = useParams();
 
     const tableHeaders = ['Version', 'Change Type', 'Change Reason', 'Created By', 'Revision Date', 'Approval Date', 'Approved By', 'Action'];
 
@@ -70,7 +72,10 @@ export default function VersionHistory() {
             createdBy: "",
             revisionDate: "",
             approvalDate: "",
-            approvedBy: ""
+            approvedBy: "",
+            project: {
+                id: id
+            }
         }]);
     };
 
@@ -85,15 +90,20 @@ export default function VersionHistory() {
                 editedRowIndex={editedRowIndex}
                 handleEdit={handleEdit}
                 handleSave={handleSave}
+                projectId={id}
+
             />
         </div>
     );
 }
 
-const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
+const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave ,projectId }) => {
+    useEffect(() => {
+    }, [VersionHistory])
+    
     return (
         <>
-            <Button onClick={handleAddRow} style={{ marginBottom: "8px" }}>Add Row</Button>
+            <Button onClick={handleAddRow}  className="w-20" style={{ marginBottom: "8px" }}>Add Row</Button>
             <Table columns={[
                     { id: 'version', title: 'Version' },
                     { id: 'changeType', title: 'Change Type' },
@@ -110,7 +120,9 @@ const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, hand
                         ))}
                     </TableHeader>
                     <TableBody>
-                        {versions.map((row, index) => (
+                        {versions.map((row, index) =>
+                        row?.project?.id == projectId ? 
+                        (
                             <TableRow key={index}>
                                 <TableCell>
                                     <input
@@ -186,7 +198,7 @@ const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, hand
                                     )}
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        ):null)}
                     </TableBody>
                 </Table>
             </>

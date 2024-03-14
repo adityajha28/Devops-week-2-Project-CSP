@@ -83,15 +83,14 @@ const CreateProject = ({ showModal, setShowModal }) => {
     return (
         <div className={`modal ${showModal ? '' : 'hidden'}`}>
             <div className="modal-overlay" onClick={() => setShowModal(false)}></div>
-            <div className="modal-content" >
+            <div className="modal-content">
                 <div className='close-btn'>
-                    <button className="delete-button" style={{ "width": "100px" }} onClick={() => setShowModal(false)} >Close</button>
+                    <button className="delete-button" style={{ "width": "100px" }} onClick={() => setShowModal(false)}>Close</button>
                 </div>
                 <div className="container">
                     <form onSubmit={handleSubmit}>
                         {step === 1 && (
                             <div>
-                                <h2>Step 1: Project Details</h2>
                                 <label>Project Name:</label>
                                 <input
                                     type="text"
@@ -106,14 +105,13 @@ const CreateProject = ({ showModal, setShowModal }) => {
                                     value={formData.projectDescription}
                                     onChange={handleChange}
                                 />
-                                <button type="button" onClick={handleNextStep}>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded' type="button" onClick={handleNextStep}>
                                     Next
                                 </button>
                             </div>
                         )}
                         {step === 2 && (
                             <div>
-                                <h2>Step 2: Client Details</h2>
                                 <label>Client Name:</label>
                                 <input
                                     type="text"
@@ -128,17 +126,16 @@ const CreateProject = ({ showModal, setShowModal }) => {
                                     value={formData.clientEmail}
                                     onChange={handleChange}
                                 />
-                                <button type="button" onClick={handlePrevStep}>
+                                <button className='bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded' type="button" onClick={handlePrevStep}>
                                     Previous
                                 </button>
-                                <button type="button" onClick={handleNextStep}>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded' type="button" onClick={handleNextStep}>
                                     Next
                                 </button>
                             </div>
                         )}
                         {step === 3 && (
                             <div>
-                                <h2>Step 3: Project Manager</h2>
                                 <label>Select Project Manager:</label>
                                 <select
                                     name="projectManager"
@@ -150,16 +147,19 @@ const CreateProject = ({ showModal, setShowModal }) => {
                                     <option value="Jane Smith">Jane Smith</option>
                                     <option value="Mike Johnson">Mike Johnson</option>
                                 </select>
-                                <button type="button" onClick={handlePrevStep}>
+                                <button className='bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded' type="button" onClick={handlePrevStep}>
                                     Previous
                                 </button>
-                                <button type="submit">Submit</button>
+                                <button className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded' type="submit">
+                                    Submit
+                                </button>
                             </div>
                         )}
                     </form>
                 </div>
             </div>
         </div>
+
     );
 };
 

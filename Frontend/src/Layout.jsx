@@ -9,30 +9,20 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div>
-      <Flex
-        className="layout-wrapper"
-        direction="Column"
-        gap={20}
-        justify="SpaceBetween"
-      >
-        <Box className="top-bar-container">
+    <div className="">
+      <div className="h-screen w-screen">
+        <div className="h-[15%] border mb-1 ">
           <TopBar />
-        </Box>
-
-        <Box className="main-content-wrapper">
-          <Flex justify="SpaceBetween">
-            <Box className="sidebar-container">
-              <Sidebar />
-            </Box>
-            <Box className="content-container">
-              <Outlet/>
-              {/* <Content /> */}
-              {/* <Project /> */}
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
+        </div>
+        <div className="flex flex-row" style={{flexDirection:"row"}}>
+          <div className="w-[20%] border">
+            <Sidebar />
+          </div>
+          <div className="w-full">
+            <Outlet />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

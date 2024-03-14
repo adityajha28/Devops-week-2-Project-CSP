@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-//import { toast } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
-//import AddUserForm from "./adduserform";
-import { Link, useNavigate } from "react-router-dom";
-import AddUserForm from "./AddUserForm";
+import { Link } from "react-router-dom";
 import DisplayProject from "../DisplayProject";
 import { Button, Flex } from "monday-ui-react-core";
-import CreateProject from "../CreateProject";
-//import FetchClientFeedback from "./fetchclientfeedback";
 
 const AdminDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
@@ -34,13 +28,14 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="">
-      <Flex>
+    <div className="w-full">
+      <div className="flex flex-row" style={{ flexDirection: "row" }}>
         <Link to="/adduserform">
           <Button>Add User Form</Button>
         </Link>
-      </Flex>
-      
+      </div>
+
+
       <DisplayProject />
     </div>
   );

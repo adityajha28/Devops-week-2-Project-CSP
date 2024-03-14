@@ -31,8 +31,8 @@ public class AuditHistoryController {
     public ResponseEntity<AuditHistory> createAuditHistory(@Valid @RequestBody AuditHistory auditHistory) {
 
         System.out.println("called added history");
-        emailService.sendAuditHistoryNotification(auditHistory,"created");
         Integer projectId = auditHistory.getProject().getId();
+        emailService.sendAuditHistoryNotification(auditHistory,"created");
         System.out.println(projectId);
         Optional<Project> optionalProject = projectRepository.findById(projectId);
         if (optionalProject.isPresent()) {
@@ -54,15 +54,15 @@ public class AuditHistoryController {
 
     // Read by id
     @GetMapping("/{id}")
-    public ResponseEntity<AuditHistory> getAuditHistoryById(@PathVariable Integer id) {
-        Optional<AuditHistory> optionalAuditHistory = auditHistoryRepository.findById(id);
-        if (optionalAuditHistory.isPresent()) {
-            AuditHistory auditHistory = optionalAuditHistory.get();
-            return new ResponseEntity<>(auditHistory, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        public ResponseEntity<AuditHistory> getAuditHistoryById(@PathVariable Integer id) {
+            Optional<AuditHistory> optionalAuditHistory = auditHistoryRepository.findById(id);
+            if (optionalAuditHistory.isPresent()) {
+                AuditHistory auditHistory = optionalAuditHistory.get();
+                return new ResponseEntity<>(auditHistory, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
-    }
 
     // Update
     @PutMapping("/{id}")

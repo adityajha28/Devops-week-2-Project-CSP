@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "./Api";
+import { useParams } from "react-router-dom";
 // SprintDetails component for managing sprint details
 export default function SprintDetails() {
     // State variables for sprint details and edited row index
     const [sprintDetails, setSprintDetails] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
+    const { id } = useParams();
 // Define table headers
     const tableHeaders = ['Sprint Number', 'Start Date', 'End Date', 'Status', 'Comments', 'Action'];
   // Fetch sprint details on component mount
@@ -72,7 +74,7 @@ export default function SprintDetails() {
             status: "",
             comments: "",
             project: {
-                id: 1
+                id: id
             }
         }]);
     };
@@ -88,15 +90,18 @@ export default function SprintDetails() {
                 editedRowIndex={editedRowIndex}
                 handleEdit={handleEdit}
                 handleSave={handleSave}
+                projectId={id}
             />
         </div>
     );
 }
 // DynamicTable component for rendering dynamic table with sprint details
-const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
+const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave ,projectId }) => {
+    useEffect(() => {
+    }, [SprintDetails])
     return (
         <>
-            <Button onClick={handleAddRow} style={{ marginBottom: "8px" }}>Add Row</Button>
+            <Button onClick={handleAddRow}  className="w-20" style={{ marginBottom: "8px" }}>Add Row</Button>
             <Table columns={[
                 { id: 'sprintNumber', title: 'Sprint Number' },
                 { id: 'startDate', title: 'Start Date' },
@@ -111,7 +116,9 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {sprintDetails.map((row, index) => (
+                    {sprintDetails.map((row, index) =>
+                      row?.project?.id == projectId ?
+                    (
                         <TableRow key={index}>
                             <TableCell>
                                 <input
@@ -141,13 +148,19 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                                 />
                             </TableCell>
                             <TableCell>
-                                <input
-                                    type="text"
-                                    value={row.status}
-                                    style={{ "border": "none" }}
+                        
+                                  <select
                                     onChange={(e) => handleChange(index, "status", e.target.value)}
-                                    readOnly={editedRowIndex !== index}
-                                />
+                                    value={row.status}
+                                    readOnly={editedRowIndex != index}
+                                    className="border-none w-full"
+                                >
+                                    <option value="Delayed">Delayed</option>
+                                    <option value="On-time">On-time</option>
+                                    <option value="Sign-off">Sign-of</option>
+    
+                                    <option value="Signed-off Pending">Signed-off Pending</option>
+                                </select>
                             </TableCell>
                             <TableCell>
                                 <input
@@ -169,7 +182,7 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                                 )}
                             </TableCell>
                         </TableRow>
-                    ))}
+                    ):null)}
                 </TableBody>
             </Table>
         </>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
 import Api from "../Api";
+import { useParams } from "react-router-dom";
 
 // Component for managing phase 
 export default function PhaseMilestones() {
      // State variables for milestones and edited row index
     const [milestones, setMilestones] = useState([]);
     const [editedRowIndex, setEditedRowIndex] = useState();
+    const { id } = useParams();
  // Headers for the table
     const tableHeaders = ['Title', 'Start Date', 'Completion Date', 'Approval Date', 'Status', 'Revised Completion Date', 'Comments', 'Action'];
  // Fetch milestones on component mount
@@ -79,7 +81,7 @@ export default function PhaseMilestones() {
             revisedCompletionDate: "",
             comments: "",
             project: {
-                id: 1
+                id: id
             }
         }]);
     };
@@ -96,14 +98,16 @@ export default function PhaseMilestones() {
                 editedRowIndex={editedRowIndex}
                 handleEdit={handleEdit}
                 handleSave={handleSave}
+                projectId={id}
             />
         </div>
     );
 }
 // Component for rendering dynamic table
 
-const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
-    console.log(milestones);
+const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave , projectId}) => {
+    useEffect(() => {
+    }, [milestones])
 // Render the dynamic table
     return (
         <>
@@ -127,7 +131,9 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                         <TableHeaderCell title="Action" />
                     </TableHeader>
                     <TableBody>
-                        {milestones.map((row, index) => (
+                        {milestones.map((row, index) => 
+                         row?.project?.id == projectId ? 
+                         (
                             <TableRow key={index}>
                                 <TableCell>
                                     <input
@@ -151,11 +157,19 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                     />
                                 </TableCell>
                                 <TableCell>
-                                    <input
-                                        onChange={(e) => handleChange(index, "status", e.target.value)}
-                                        type="" style={{ "border": "none" }} value={row.status}
-                                        readOnly={editedRowIndex != index}
-                                    />
+            
+                                   <select
+                                    onChange={(e) => handleChange(index, "status", e.target.value)}
+                                    value={row.status}
+                                    readOnly={editedRowIndex != index}
+                                    className="border-none w-full"
+                                >
+                                    <option value="Delayed">Delayed</option>
+                                    <option value="On-time">On-time</option>
+                                    <option value="Sign-off">Sign-of</option>
+    
+                                    <option value="Signed-off Pending">Signed-off Pending</option>
+                                </select>
                                 </TableCell>
                                 <TableCell>
                                     <input
@@ -182,7 +196,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                     )}
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        ):null)}
                     </TableBody>
                 </Table>
             </>

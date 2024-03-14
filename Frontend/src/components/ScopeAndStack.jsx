@@ -97,6 +97,7 @@ const ScopeAndStack = () => {
         <div className="scope-wrapper">
           <label>Scope</label>
           <textarea
+            className="border"
             value={projectDetails?.scope}
             onChange={(e) => handleInputChange(e, "scope")}
           ></textarea>

@@ -14,7 +14,6 @@ import ProjectManagerDashboard from './components/ProjectManager/ProjectManagerD
 import UserLogin from './UserLogin';
 import DisplayProject from './components/DisplayProject';
 import AdminLayout from './components/Admin/AdminLayout';
-import ClientFeedBack from './components/Client/ClientFeedback';
 import EscalationMatrix from './components/EscalationMatrix';
 import PrivateRoute from './PrivateRoute';;
 import IndexLayout from './IndexLayout';
@@ -25,7 +24,10 @@ import RiskProfiling from './components/RiskProfiling';
 import ScopeAndStack from './components/ScopeAndStack';
 import Stakeholders from './components/Stakeholders';
 import SprintDetails from './components/Sprintdetail';
-import VersionHistory from './components/VersionHistory';
+import VersionHistory from './pages/VersionHistory';
+import AuditHistoryComponent from './components/Auditor/AuditHistory';
+import ClientFeedbackForm from './components/Client/ClientFeedbackForm';
+import ClientFeedback from './components/ClientFeedback';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(null);
@@ -40,7 +42,7 @@ function App() {
   const clientRoutes = userRole == "Client" && (
     <>
       <Route index element={<ClientDashboard />} />
-      <Route path="/clientfeedback" element={<ClientFeedBack />} />
+      <Route path="/clientfeedbackform" element={<ClientFeedbackForm />} />
     </>
   );
   const projectManagerRoutes = userRole == "ProjectManager" && (
@@ -53,8 +55,8 @@ function App() {
     <>
       <Route index element={<AdminDashboard />} />
       <Route path="/:id" element={<AdminLayout />}>
-        <Route index element={<EscalationMatrix />} />
-        <Route path="escalationmatrix" index element={<EscalationMatrix />} />
+        <Route index element={<OverView />} />
+        <Route path="escalationmatrix" element={<EscalationMatrix />} />
         <Route path="phasemilestone" element={<PhaseMilestones />} />
         <Route path="overview" element={<OverView />} />
         <Route path="riskprofile" element={<RiskProfiling />} />
@@ -62,8 +64,10 @@ function App() {
         <Route path="stakeholders" element={<Stakeholders />} />
         <Route path="sprintdetails" element={<SprintDetails />} />
         <Route path="VersionHistory" element={<VersionHistory/>} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
+        <Route path="clientfeedback" element={<ClientFeedback/>}/>
       </Route>
-      <Route path="/adduserform" element={<AddUserForm />} />
+      <Route path="adduserform" element={<AddUserForm />} />
 
     </>
   );

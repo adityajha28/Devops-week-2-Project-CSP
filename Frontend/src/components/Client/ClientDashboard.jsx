@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-// import Clientfeeback from "./clientfeeback";
+import React, { useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import ClientFeedBack from "./ClientFeedback";
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import ClientFeedBack from "./ClientFeedbackForm";
+
 
 const ClientDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
@@ -19,7 +17,7 @@ const ClientDashboard = () => {
   }, [getAccessTokenSilently, isAuthenticated]);
 
   if (isLoading) {
-    //toast.info('Loading...');
+    
     return <div>Loading...</div>;
   }
 

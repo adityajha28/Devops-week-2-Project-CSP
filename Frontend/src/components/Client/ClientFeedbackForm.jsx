@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Api from '../Api';
 
-const ClientFeedBack = () => {
+const ClientFeedbackForm = () => {
     const [clientName, setClientName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [feedbackType, setFeedbackType] = useState('');
     const [detailedFeedback, setDetailedFeedback] = useState('');
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-    const [actionTaken, setActionTaken] = useState(null);
-    const [closureDate, setClosureDate] = useState(null);
+   // const [actionTaken, setActionTaken] = useState(null);
+    //const [closureDate, setClosureDate] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -122,4 +121,4 @@ const ClientFeedBack = () => {
     );
 };
 
-export default ClientFeedBack;
+export default ClientFeedbackForm;

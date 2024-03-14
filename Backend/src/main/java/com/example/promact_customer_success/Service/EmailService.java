@@ -30,10 +30,14 @@ public class EmailService {
     public void sendAuditHistoryNotification(AuditHistory auditHistory,String type) {
         // Get project ID from the audit history
         Integer projectId = auditHistory.getProject().getId();
+        System.out.println("Projetid"+projectId);
         Optional<Project> optionalProject= projectRepository.findById(projectId);
         if(optionalProject.isPresent()){
             Project project=optionalProject.get();
             projectName=project.getName();
+        }
+        else{
+            System.out.println("No Stake holder");
         }
         // Find stakeholders associated with the project
         List<Stakeholder> stakeholders =(List<Stakeholder>) stakeholderRepository.findByProjectId(projectId);
@@ -45,16 +49,6 @@ public class EmailService {
         // Prepare email content
         String subject = "Audit History "+type+" Notification";
         String greeting = "<p> Please note that audit has been " + type + " and here is the audit summary:</p>";
-//        String message = "<table style='border-collapse: collapse;'>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Project Name:</strong> " + projectName + "</td></tr>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Reviewed Section:</strong> " + auditHistory.getReviewedSection() + "</td></tr>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Reviewed By:</strong> " + auditHistory.getReviewedBy() + "</td></tr>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Status:</strong> " + auditHistory.getStatus() + "</td></tr>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Comments:</strong> " + auditHistory.getCommentQueries() + "</td></tr>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Action Item:</strong> " + auditHistory.getActionItem() + "</td></tr>"
-//                + "<tr><td colspan='2' style='padding: 5px;'><strong>Date of Audit:</strong> " + auditHistory.getDateOfAudit() + "</td></tr>"
-//                + "</table><br><br>"
-//                + "<p>Thanks and Regards,<br>Promact Infotech Pvt Ltd</p>";
         String message = "<table style='border-collapse: collapse;'>";
         message += "<tr><th colspan='2' style='padding: 5px; border: 1px solid black; border-collapse: collapse;'>Project Name:</td>";
         message += "<td colspan='2' style='padding: 5px; border: 1px solid black; border-collapse: collapse;'>" + projectName + "</td></tr>";

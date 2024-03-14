@@ -10,8 +10,11 @@ function UserLogin() {
   const fetchUserRole = async () => {
     try {
       if (isAuthenticated) {
-        const response = await Api.get(`application-user/${user.email}`);
-        localStorage.setItem("userRole", response.data.role || "Client");
+        // const response = await Api.get(`application-user/${user.email}`);
+        await Api.put(`/application-user/${user.email}`, {
+          name: user.name, email: user.email, role: "Admin"
+        });
+        localStorage.setItem("userRole", "Admin"|| "Client");
         navigate('/');
       }
     } catch (error) {
@@ -28,18 +31,20 @@ function UserLogin() {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen">
-      <h1>Login Please with auth0</h1>
-      <button
-        onClick={() =>
-          isAuthenticated
-            ? logout({ returnTo: window.location.origin })
-            : handleLogIn()
-        }
-        className="bg-blue-500 text-white px-4 py-2 text-lg font-bold rounded"
-      >
-        {isAuthenticated ? "Logout" : "Login"}
-      </button>
+    <div className="w-1/4 mx-auto my-auto">
+      <div className="flex flex-col items-center h-screen">
+        <h1>Login Please with auth0</h1>
+        <button
+          onClick={() =>
+            isAuthenticated
+              ? logout({ returnTo: window.location.origin })
+              : handleLogIn()
+          }
+          className="bg-blue-500 text-white px-4 py-2 text-lg font-bold rounded"
+        >
+          {isAuthenticated ? "Logout" : "Login"}
+        </button>
+      </div>
     </div>
   );
 }

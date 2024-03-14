@@ -1,40 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { Box, Flex, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button } from "monday-ui-react-core";
+import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button } from "monday-ui-react-core";
 import Api from "./Api";// Importing API utility for making HTTP requests
+import { useParams } from "react-router-dom";
 
 export default function EscalationMatrix() {
     const [data, setData] = useState([]);// State variable for storing data fetched from the API
     const [editedRowIndex, setEditedRowIndex] = useState(-1);// State variable to track the index of the row being edited
-
+    const { id } = useParams();
     const tableNames = ['Escalation Level', 'Role', 'Name', 'Type', 'Action']; // Array containing table column names
 
 
-    const fetchData=async()=>{
+    const fetchData = async () => {
         await Api.get("/escalation-matrix").then((res) => {
             console.log(res.data);
-             // Fetch data from the API endpoint
+            // Fetch data from the API endpoint
             setData(res.data);
         })
     }
-    useEffect( () => {
+    useEffect(() => {
         // Effect hook to fetch data from the API when the component mounts
-      fetchData();
+        fetchData();
     }, []);
 
     const handleChange = (value, type, index) => {
-         // Function to handle changes in input fields
+        // Function to handle changes in input fields
         const updatedDate = [...data];
         updatedDate[index][type] = value;
         setData(updatedDate);
     }
 
     const handleSave = async (rowData) => {
-                // Function to handle saving data
+        // Function to handle saving data
 
         console.log(rowData);
         setEditedRowIndex(-1);// Reset the edited row index
         if (rowData.id != '') {
-                        // If the row has an ID, it already exists in the database, so update it
+            // If the row has an ID, it already exists in the database, so update it
 
             await Api.put(`escalation-matrix/${rowData.id}`, rowData).then((res) => {
                 console.log(res)// Log the response after successful update
@@ -59,10 +60,10 @@ export default function EscalationMatrix() {
         const getConfimation = confirm("Do you really want to delete it");
         console.log(getConfimation);
         if (getConfimation == true) {
-                        // If the user confirms deletion
+            // If the user confirms deletion
 
             await Api.delete(`escalation-matrix/${rowDate.id}`,).then((res) => {
-                                // Send delete request to the API endpoint
+                // Send delete request to the API endpoint
 
                 const newData = [...data];// Create a copy of the data array
                 newData.splice(index, 1);// Remove the deleted row from the copied data array
@@ -75,16 +76,16 @@ export default function EscalationMatrix() {
     }
 
     const handleAddRow = () => {
-           // Function to handle adding a new row
+        // Function to handle adding a new row
         setData([...data, {
             id: "", escalationLevel: "", role: "", name: "", type: "", project: {
-                id: 1
+                id: id
             }
         }]);// Append a new row with default values to the data array
     }
 
     const handleEdit = (index) => {
-                // Function to handle editing a row
+        // Function to handle editing a row
 
         setEditedRowIndex(index);// Set the index of the row being edited
     }
@@ -99,25 +100,31 @@ export default function EscalationMatrix() {
                 editedRowIndex={editedRowIndex}
                 handleEdit={handleEdit}
                 handleSave={handleSave}
+                projectId={id}
             />
         </div>
     )
 }
 
-const DynamicTable = ({ tableNames, data, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave }) => {
+const DynamicTable = ({ tableNames, data, handleAddRow, handleChange, handleDelete, editedRowIndex, handleEdit, handleSave ,projectId }) => {
+    useEffect(() => {
+    }, [EscalationMatrix])
     return (
         <>
-            <Button onClick={handleAddRow} style={{ marginBottom: "8px" }}>Add Row </Button>
+            <Button onClick={handleAddRow} className="w-20" style={{ marginBottom: "8px" }}>Add Row </Button>
             <Table columns={tableNames}>
                 <TableHeader>
                     {
                         tableNames.map(element => {
+                         
                             return <TableHeaderCell title={element} />
                         })
                     }
                 </TableHeader>
                 <TableBody>
-                    {data.map((row, index) => (
+                    {data.map((row, index) => 
+                       row?.project?.id == projectId ?
+                    (
                         <TableRow key={index}>
                             <TableCell>
                                 <input
@@ -139,11 +146,17 @@ const DynamicTable = ({ tableNames, data, handleAddRow, handleChange, handleDele
                                 />
                             </TableCell>
                             <TableCell>
-                                <input
+                
+                                <select
                                     onChange={(e) => handleChange(e.target.value, "type", index)}
-                                    type="text" style={{ "border": "none" }} value={row.type}
-                                    readOnly={row.id != ''}
-                                />
+                                    value={row.type}
+                                    readOnly={row.id !== ''}
+                                    className="border-none w-full"
+                                >
+                                    <option value="finacial">Finacial</option>
+                                    <option value="operation">Operational</option>
+                                    <option value="technical">Technical</option>
+                                </select>
                             </TableCell>
                             <TableCell style={{ padding: "2px" }}>
                                 {editedRowIndex != index ? (
@@ -157,7 +170,7 @@ const DynamicTable = ({ tableNames, data, handleAddRow, handleChange, handleDele
                                 )}
                             </TableCell>
                         </TableRow>
-                    ))}
+                    ):null)}
                 </TableBody>
             </Table>
         </>

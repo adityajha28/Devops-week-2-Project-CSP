@@ -15,7 +15,7 @@ import PhaseMilestones from "./ProjectManager/PhaseMilestones";
 import SprintDetails from "./Sprintdetail";
 import RiskProfiling from "./RiskProfiling";
 import Stakeholders from "./Stakeholders";
-import VersionHistory from "./VersionHistory";
+import VersionHistory from "../pages/VersionHistory";
 import AuditHistory from "./Auditor/AuditHistory";
 import Overview from "./OverView";
 // Main component for the project view
