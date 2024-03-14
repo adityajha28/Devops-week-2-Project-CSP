@@ -73,7 +73,7 @@ public class PdfGeneratorController {
                 htmlTable.append("<tr>");
                 htmlTable.append("<td>").append(project.getId()).append("</td>");
                 htmlTable.append("<td>").append(project.getName()).append("</td>");
-                htmlTable.append("<td>").append(project.getDescription().substring(0,100)).append("</td>");
+//                htmlTable.append("<td>").append(project.getDescription().substring(0,100)).append("</td>");
                 htmlTable.append("</tr>");
             }
             htmlTable.append("</table>");

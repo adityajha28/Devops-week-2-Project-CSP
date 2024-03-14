@@ -5,7 +5,7 @@ import DisplayProject from "../../pages/DisplayProject";
 
 const AuditorDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
-  const [token,setToken] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -37,7 +37,7 @@ const AuditorDashboard = () => {
 
   return (
     <div className="items-center space-y-16">
-      <DisplayProject  />
+      <DisplayProject />
     </div>
   );
 };

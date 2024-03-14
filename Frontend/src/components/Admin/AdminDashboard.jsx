@@ -33,6 +33,9 @@ const AdminDashboard = () => {
         <Link to="/adduserform">
           <Button>Add User Form</Button>
         </Link>
+        <div className="save_button">
+          <a href="http://localhost:8081/export/pdf"><button className="Export_button">Export As Pdf</button></a>
+        </div>
       </div>
 
 

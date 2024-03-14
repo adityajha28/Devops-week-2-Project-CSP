@@ -11,7 +11,7 @@ const Layout = () => {
         <div className="h-[15%] border mb-1 ">
           <TopBar />
         </div>
-        <div className="flex flex-row" style={{flexDirection:"row"}}>
+        <div className="flex flex-row" style={{ flexDirection: "row" }}>
           <div className="w-[20%] border">
             <Sidebar />
           </div>

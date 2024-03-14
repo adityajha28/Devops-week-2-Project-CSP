@@ -10,7 +10,7 @@ function AdminLayout() {
     const { id } = useParams();
     const fetchProject = async () => {
         await Api.get(`/project/${id}`).then((e) => {
-            
+
             setProject(e.data);
         })
             .catch((e) => {
@@ -19,9 +19,14 @@ function AdminLayout() {
     }
     useEffect(() => {
         fetchProject();
-    },[]);
+    }, []);
     return (
         <>
+            <div className="flex flex-row" style={{ flexDirection: "row-reverse" }}>
+                <div className="save_button">
+                    <a href="http://localhost:8081/export/pdf"><button className="Export_button">Export As Pdf</button></a>
+                </div>
+            </div>
             <div className='m-2 p-2'>
                 <BreadcrumbsBar type={BreadcrumbsBar.types.INDICATION}>
                     <BreadcrumbItem text='Project' />
