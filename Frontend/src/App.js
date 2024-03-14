@@ -14,7 +14,7 @@ import AdminLayout from './components/Admin/AdminLayout';
 import EscalationMatrix from './pages/EscalationMatrix';
 import PrivateRoute from './PrivateRoute';
 import AddUserForm from './components/Admin/AddUserForm';
-import PhaseMilestones from './components/ProjectManager/PhaseMilestones';
+import PhaseMilestones from './pages/PhaseMilestones';
 import OverView from './pages/OverView';
 import RiskProfiling from './pages/RiskProfiling';
 import ScopeAndStack from './pages/ScopeAndStack';

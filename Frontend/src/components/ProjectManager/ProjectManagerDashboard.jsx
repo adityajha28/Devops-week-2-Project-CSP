@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import Momsclient from "./Momsclient";
 // import Phase from "./Phase";
 // import FetchClientFeedback from "../admin/fetchclientfeedback";
-import PhaseMilestones from "./PhaseMilestones";
+import PhaseMilestones from "../../pages/PhaseMilestones";
 
 const ProjectManagerDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
