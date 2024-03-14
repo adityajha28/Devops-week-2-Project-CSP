@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button, TabList, TabsContext, Tab,TabPanel,TabPanels } from "monday-ui-react-core";
+import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button, TabList, TabsContext, Tab, TabPanel, TabPanels, Flex, Box } from "monday-ui-react-core";
 import Api from "../api/Api";
 import { Link } from "react-router-dom";
 export default function DisplayProject() {
@@ -12,9 +12,9 @@ export default function DisplayProject() {
     const fetchData = async () => {
         await Api.get("/project").then((res) => {
             console.log(res.data);
-            
+
             setData(res.data);
-        }).catch((e)=>{
+        }).catch((e) => {
             setData([]);
         })
     }
@@ -76,9 +76,9 @@ export default function DisplayProject() {
         }
         setEditedRowIndex(-1);// Reset the edited row index
     }
-    useEffect(()=>{
+    useEffect(() => {
         console.log(activeTab)
-    },[activeTab])
+    }, [activeTab])
     const handleEdit = (index) => {
         // Function to handle editing a row
 
@@ -86,49 +86,74 @@ export default function DisplayProject() {
     }
     return (
         <div>
-            
-                <TabList onTabChange={(tabId)=>{
-                    setActiveTab(tabId)}}>
-                    <Tab>
-                        All Projects
-                    </Tab>
-                    <Tab>
-                        On Going
-                    </Tab>
-                    <Tab>
-                        Hold
-                    </Tab>
-                    <Tab>
-                        Closed
-                    </Tab>
-                </TabList>
-            
+
+            <div class="flex gap-5 my-2" style={{ flexDirection: "row" }}>
+                <div class="bg-white w-[15%] p-4 text-center rounded-lg shadow-lg">
+                    <h1 className="text-3xl p-2">{data.length}</h1>
+                    <p className="p-1">Total Project</p>
+                </div>
+
+                <div class="bg-white w-[15%] p-4 text-center rounded-lg shadow-lg">
+                    <h1 className="text-3xl p-2">{data.filter((row) => row.status == "On Going").length}</h1>
+                    <p className="p-1">On Going</p>
+                </div>
+
+                <div class="bg-white w-[15%] p-4 text-center rounded-lg shadow-lg">
+
+                    <h1 className="text-3xl p-2">{data.filter((row) => row.status == "Hold").length}</h1>
+                    <p className="p-1">Hold</p>
+                </div>
+                <div class="bg-white w-[15%] p-4 text-center rounded-lg shadow-lg">
+
+                    <h1 className="text-3xl p-2">{data.filter((row) => row.status == "Closed").length}</h1>
+                    <p className="p-1">Close</p>
+
+                </div>
+            </div>
+
+            <TabList onTabChange={(tabId) => {
+                setActiveTab(tabId)
+            }}>
+                <Tab>
+                    All Projects
+                </Tab>
+                <Tab>
+                    On Going
+                </Tab>
+                <Tab>
+                    Hold
+                </Tab>
+                <Tab>
+                    Closed
+                </Tab>
+            </TabList>
+
             <TabPanels activeTabId={activeTab}>
                 <TabPanel><DynamicTable tableNames={tableNames}
-                data={data} editedRowIndex={editedRowIndex}
-                handleEdit={handleEdit} handleDelete={handleDelete}
-                handleSave={handleSave} handleChange={handleChange}
-            /></TabPanel>
+                    data={data} editedRowIndex={editedRowIndex}
+                    handleEdit={handleEdit} handleDelete={handleDelete}
+                    handleSave={handleSave} handleChange={handleChange}
+                /></TabPanel>
                 <TabPanel><DynamicTable tableNames={tableNames}
-                data={data.filter((row)=>row.status==="On Going")} editedRowIndex={editedRowIndex}
-                handleEdit={handleEdit} handleDelete={handleDelete}
-                handleSave={handleSave} handleChange={handleChange}
-                
-            /></TabPanel>
+                    data={data.filter((row) => row.status === "On Going")} editedRowIndex={editedRowIndex}
+                    handleEdit={handleEdit} handleDelete={handleDelete}
+                    handleSave={handleSave} handleChange={handleChange}
+
+                /></TabPanel>
                 <TabPanel><DynamicTable tableNames={tableNames}
-                data={data.filter((row)=>row.status==="Hold")} editedRowIndex={editedRowIndex}
-                handleEdit={handleEdit} handleDelete={handleDelete}
-                handleSave={handleSave} handleChange={handleChange}
-                
-            /></TabPanel>
+                    data={data.filter((row) => row.status === "Hold")} editedRowIndex={editedRowIndex}
+                    handleEdit={handleEdit} handleDelete={handleDelete}
+                    handleSave={handleSave} handleChange={handleChange}
+
+                /></TabPanel>
                 <TabPanel><DynamicTable tableNames={tableNames}
-                data={data.filter((row)=>row.status==="Closed")} editedRowIndex={editedRowIndex}
-                handleEdit={handleEdit} handleDelete={handleDelete}
-                handleSave={handleSave} handleChange={handleChange}
-                
-            /></TabPanel>
+                    data={data.filter((row) => row.status === "Closed")} editedRowIndex={editedRowIndex}
+                    handleEdit={handleEdit} handleDelete={handleDelete}
+                    handleSave={handleSave} handleChange={handleChange}
+
+                /></TabPanel>
             </TabPanels>
-            
+
         </div>
     )
 }
@@ -162,32 +187,32 @@ const DynamicTable = ({ tableNames, data, editedRowIndex, handleEdit, handleDele
                                     {row?.description}
                                 </TableCell>
                                 <TableCell>
-                                    {editedRowIndex != index ?<>
-                                    <Label key={statusOptions.value} text={row.status} color= {statusOptions.filter((option)=>option.value===row.status)[0]?.color} isAnimationDisabled />
-                                   
-                                    </>:<>
-                                    
-                                    <select
-                                        onChange={(e) => handleChange(e.target.value, "status", index)}
-                                        value={row.status}
-                                        readOnly={editedRowIndex != index}
-                                        className="border-none w-full"
-                                    >
-                                        {statusOptions.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
-                                                
-                                             </option>
-                                        ))}
-                                    </select>
+                                    {editedRowIndex != index ? <>
+                                        <Label key={statusOptions.value} text={row.status} color={statusOptions.filter((option) => option.value === row.status)[0]?.color} isAnimationDisabled />
 
-                                    {statusOptions.map((option) =>
-                                        row.status === option.value ? (
-                                            <Label key={option.value} text={option.label} color={option.color} isAnimationDisabled />
-                                        ) : null
-                                    )}
+                                    </> : <>
+
+                                        <select
+                                            onChange={(e) => handleChange(e.target.value, "status", index)}
+                                            value={row.status}
+                                            readOnly={editedRowIndex != index}
+                                            className="border-none w-full"
+                                        >
+                                            {statusOptions.map((option) => (
+                                                <option key={option.value} value={option.value}>
+                                                    {option.label}
+
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        {statusOptions.map((option) =>
+                                            row.status === option.value ? (
+                                                <Label key={option.value} text={option.label} color={option.color} isAnimationDisabled />
+                                            ) : null
+                                        )}
                                     </>}
-                                    
+
                                 </TableCell>
                                 <TableCell>
                                     <input
