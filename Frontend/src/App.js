@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./App.css";
 import "monday-ui-react-core/tokens";
-import { Button } from "monday-ui-react-core";
 import Layout from './Layout';
-import Project from './components/Project';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AuditorDashboard from './components/Auditor/AuditorDashboard';
 import ClientDashboard from './components/Client/ClientDashboard';
 import ProjectManagerDashboard from './components/ProjectManager/ProjectManagerDashboard';
-import UserLogin from './UserLogin';
-import DisplayProject from './components/DisplayProject';
+import UserLogin from './pages/UserLogin';
 import AdminLayout from './components/Admin/AdminLayout';
-import EscalationMatrix from './components/EscalationMatrix';
-import PrivateRoute from './PrivateRoute';;
-import IndexLayout from './IndexLayout';
+import EscalationMatrix from './pages/EscalationMatrix';
+import PrivateRoute from './PrivateRoute';
 import AddUserForm from './components/Admin/AddUserForm';
 import PhaseMilestones from './components/ProjectManager/PhaseMilestones';
-import OverView from './components/OverView';
-import RiskProfiling from './components/RiskProfiling';
-import ScopeAndStack from './components/ScopeAndStack';
-import Stakeholders from './components/Stakeholders';
-import SprintDetails from './components/Sprintdetail';
+import OverView from './pages/OverView';
+import RiskProfiling from './pages/RiskProfiling';
+import ScopeAndStack from './pages/ScopeAndStack';
+import Stakeholders from './pages/Stakeholders';
+import SprintDetails from './pages/Sprintdetail';
 import VersionHistory from './pages/VersionHistory';
-import AuditHistoryComponent from './components/Auditor/AuditHistory';
+import AuditHistoryComponent from './pages/AuditHistory';
 import ClientFeedbackForm from './components/Client/ClientFeedbackForm';
-import ClientFeedback from './components/ClientFeedback';
+import ClientFeedback from './pages/ClientFeedback';
 import AuditorLayout from './components/Auditor/AuditorLayout';
 
 function App() {
@@ -98,7 +94,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<UserLogin />} />
         <Route exact path="/" element={<PrivateRoute authenticated={authenticated} setAuthenticated={setAuthenticated} />}>
-          <Route path="/" element={<IndexLayout />}>
+          <Route path="/" element={<Layout />}>
             {clientRoutes}
             {projectManagerRoutes}
             {adminRoutes}

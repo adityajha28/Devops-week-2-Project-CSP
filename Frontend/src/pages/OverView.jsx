@@ -3,7 +3,7 @@ import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
 import "../styling/overview.css";
 import axios from "axios";
-import Api from "./Api";
+import Api from "../api/Api";
 import { useParams } from "react-router-dom";
 
 // Component for managing project overview

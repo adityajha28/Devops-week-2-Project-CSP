@@ -1,10 +1,7 @@
 import React from "react";
-import TopBar from "./components/TopBar";
-import Sidebar from "./components/Sidebar";
-import Content from "./components/Content";
-import Project from "./components/Project";
+import TopBar from "./pages/TopBar";
+import Sidebar from "./pages/Sidebar";
 import "./styling/layout.css";
-import { Box, Flex } from "monday-ui-react-core";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {

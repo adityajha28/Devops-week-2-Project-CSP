@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from "monday-ui-react-core";
-import Api from "../Api";
+import Api from "../api/Api";
 import { useParams } from "react-router-dom";
 
 //component for audit history
 export default function AuditHistoryComponent() {
     const { id } = useParams();
-    const [history, setHistory] = useState([]); // State variable for storing audit history data
-    const [editedRowIndex, setEditedRowIndex] = useState(); // State variable to track the index of the row being edited
+    const [history, setHistory] = useState([]); 
+    const [editedRowIndex, setEditedRowIndex] = useState(); 
     const userRole=localStorage.getItem("userRole");
     const tableHeaders = ['Date of Audit', 'Reviewed By', 'Status', 'Reviewed Section', 'Comment Queries', 'Action Item', 'Action'];
-    // Effect hook to fetch audit history data from the API when the component mounts
+    
+    // Effect hook 
     useEffect(() => {
         fetchAuditHistory();
     }, []);

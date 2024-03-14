@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate, Outlet } from "react-router-dom";
-import Api from "./components/Api";
+import Api from "./api/Api";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const PrivateRoute = ({ component: Component,authenticated,setAuthenticated, ...rest }) => {

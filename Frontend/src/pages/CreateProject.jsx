@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './../styling/createproject.css';
-import { Button } from 'monday-ui-react-core';
-import Api from './Api';
+import Api from '../api/Api';
 
 const CreateProject = ({ showModal, setShowModal }) => {
     const [step, setStep] = useState(1);
     const [projectId, setProjectId] = useState(-1);
-    const userRole = localStorage.getItem("userRole");
     const [projectManagers, setProjectManager] = useState([]);
     const [formData, setFormData] = useState({
         projectName: '',

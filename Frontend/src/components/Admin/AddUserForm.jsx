@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Api from "../Api";
+import Api from "../../api/Api";
 import "./../../styling/adduserform.css";
 const AddUserForm = () => {
   const [userData, setUserData] = useState({

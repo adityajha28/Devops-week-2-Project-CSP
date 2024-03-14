@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Api from '../Api';
+import Api from '../../api/Api';
 
 const ClientFeedbackForm = () => {
     const [clientName, setClientName] = useState('');

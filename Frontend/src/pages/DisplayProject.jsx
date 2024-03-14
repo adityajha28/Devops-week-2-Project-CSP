@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button, TabList, TabsContext, Tab,TabPanel,TabPanels } from "monday-ui-react-core";
-import Api from "./Api";
+import Api from "../api/Api";
 import { Link } from "react-router-dom";
 export default function DisplayProject() {
     const [data, setData] = useState([]);

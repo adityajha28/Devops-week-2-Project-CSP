@@ -5,7 +5,7 @@ import "monday-ui-react-core/tokens";
 import "../styling/topbar.css";
 
 import { useNavigate } from "react-router-dom";
-import Api from "./Api";
+import Api from "../api/Api";
 
 const TopBar = () => {
   const { isAuthenticated, user, isLoading, loginWithRedirect, logout } =

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell, Label, Button } from "monday-ui-react-core";
-import Api from "./Api";// Importing API utility for making HTTP requests
+import Api from "../api/Api";// Importing API utility for making HTTP requests
 import { useParams } from "react-router-dom";
 
 

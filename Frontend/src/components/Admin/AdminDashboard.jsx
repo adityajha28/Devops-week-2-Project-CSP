@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import DisplayProject from "../DisplayProject";
+import DisplayProject from "../../pages/DisplayProject";
 import { Button, Flex } from "monday-ui-react-core";
 
 const AdminDashboard = () => {

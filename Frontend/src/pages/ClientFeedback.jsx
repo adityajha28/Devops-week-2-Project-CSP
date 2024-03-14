@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Table, TableHeader, TableHeaderCell, TableBody, TableRow, TableCell } from 'monday-ui-react-core';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Api from './Api';
+import Api from '../api/Api';
 
 const ClientFeedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);

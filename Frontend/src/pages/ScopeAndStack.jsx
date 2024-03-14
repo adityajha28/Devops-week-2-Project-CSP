@@ -3,7 +3,7 @@ import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
 import axios from "axios";
 import './../styling/scope.css';
-import Api from "./Api";
+import Api from "../api/Api";
 import { useParams } from "react-router-dom";
 //not implemented backend logic for this
 const ScopeAndStack = () => {

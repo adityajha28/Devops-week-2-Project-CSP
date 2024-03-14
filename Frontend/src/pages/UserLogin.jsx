@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Api from "./components/Api";
+import Api from "../api/Api";
 import { useNavigate } from "react-router-dom";
 
 function UserLogin() {
