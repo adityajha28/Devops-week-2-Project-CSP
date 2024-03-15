@@ -4,7 +4,7 @@ import Api from '../api/Api';
 
 const CreateProject = ({ showModal, setShowModal }) => {
     const [step, setStep] = useState(1);
-    const [projectId, setProjectId] = useState(-1);
+    const [ setProjectId] = useState(-1);
     const [projectManagers, setProjectManager] = useState([]);
     const [formData, setFormData] = useState({
         projectName: '',

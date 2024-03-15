@@ -4,7 +4,7 @@ import PhaseMilestones from "../../pages/PhaseMilestones";
 
 const ProjectManagerDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
-  const [ setToken] = useState(null);
+  const [Token,  setToken] = useState(null);
 
   const fetchToken = async () => {
     if (isAuthenticated) {

@@ -5,10 +5,11 @@ import ClientFeedBack from "./ClientFeedbackForm";
 
 const ClientDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
-
+  const [Token,  setToken] = useState(null);
   const fetchToken = async () => {
     if (isAuthenticated) {
-       await getAccessTokenSilently();
+      const temp = await getAccessTokenSilently();
+      setToken(temp);
     }
   };
   useEffect(() => {

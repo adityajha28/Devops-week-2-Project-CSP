@@ -10,7 +10,7 @@ export default function Stakeholders() {
     const userRole=localStorage.getItem("userRole");
 
     const tableHeaders = ['Title', 'Name', 'Contact', 'Action'];
-
+                                                                                                    
     useEffect(() => {
         fetchStakeholders();
     }, []);

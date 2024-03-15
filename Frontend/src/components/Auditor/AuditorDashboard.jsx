@@ -5,7 +5,7 @@ import DisplayProject from "../../pages/DisplayProject";
 
 const AuditorDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
-  const [setToken] = useState(null);
+  const [Token, setToken] = useState(null);
 
   useEffect(() => {
     const fetchToken = async () => {

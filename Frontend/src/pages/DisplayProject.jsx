@@ -127,7 +127,7 @@ export default function DisplayProject() {
                     Closed
                 </Tab>
             </TabList>
-
+            
             <TabPanels activeTabId={activeTab}>
                 <TabPanel><DynamicTable tableNames={tableNames}
                     data={data} editedRowIndex={editedRowIndex}

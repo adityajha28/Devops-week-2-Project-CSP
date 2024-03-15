@@ -5,7 +5,7 @@ import "monday-ui-react-core/tokens";
 import "../styling/topbar.css";
 
 const TopBar = () => {
-  const { isAuthenticated, user,  loginWithRedirect, logout } =
+  const { isAuthenticated, user, loginWithRedirect, logout } =
     useAuth0();
   useEffect(()=>{
     console.log("topbar");

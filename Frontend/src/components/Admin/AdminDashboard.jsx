@@ -6,8 +6,8 @@ import { Button } from "monday-ui-react-core";
 
 const AdminDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
-  const [ setToken] = useState(null);
-
+  const [Token, setToken] = useState(null);
+ 
   const fetchToken = async () => {
     if (isAuthenticated) {
       const temp = await getAccessTokenSilently();
