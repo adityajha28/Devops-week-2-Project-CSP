@@ -48,7 +48,7 @@ export default function SprintDetails() {
 
     // Function to delete sprint detail
     const handleDelete = async (rowData, index) => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -68,7 +68,7 @@ export default function SprintDetails() {
     };
 // Function to handle edit of sprint detail
     const handleEdit = (index) => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -77,7 +77,7 @@ export default function SprintDetails() {
     };
 // Function to add a new row for sprint detail
     const handleAddRow = () => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return

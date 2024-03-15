@@ -48,7 +48,8 @@ export default function RiskProfiling() {
 
     // Function to delete risk profile data
     const handleDelete = async (rowData, index) => {
-        if( userRole=="Auditor")
+
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -69,7 +70,7 @@ export default function RiskProfiling() {
 
     // Function to handle edit action
     const handleEdit = (index) => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -79,7 +80,7 @@ export default function RiskProfiling() {
 
     // Function to add a new row for risk profiles
     const handleAddRow = () => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return

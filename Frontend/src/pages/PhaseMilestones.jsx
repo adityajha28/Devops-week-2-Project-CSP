@@ -53,7 +53,7 @@ export default function PhaseMilestones() {
     };
      // Handle deleting a milestone
     const handleDelete = async (rowData, index) => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor" ||userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -73,7 +73,7 @@ export default function PhaseMilestones() {
     };
         // Handle editing a milestone
     const handleEdit = (index) => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -83,7 +83,7 @@ export default function PhaseMilestones() {
     
     // Handle adding a new row for a milestone
     const handleAddRow = () => {
-        if( userRole=="Auditor")
+        if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return

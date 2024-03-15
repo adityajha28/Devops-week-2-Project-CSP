@@ -12,7 +12,7 @@ const ScopeAndStack = () => {
   const userRole=localStorage.getItem("userRole");
 
   const handleSubmit = async () => {
-    if( userRole=="Auditor")
+    if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");
             return

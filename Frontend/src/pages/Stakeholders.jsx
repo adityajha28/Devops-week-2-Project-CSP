@@ -76,6 +76,7 @@ export default function Stakeholders() {
     };
 
     const handleAddRow = () => {
+        if(userRole=="Client")
         setStakeholders([...stakeholders, {
             title: "",
             name: "",
