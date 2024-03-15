@@ -10,7 +10,7 @@ export default function Stakeholders() {
     const userRole=localStorage.getItem("userRole");
 
     const tableHeaders = ['Title', 'Name', 'Contact', 'Action'];
-                                                                                                    
+
     useEffect(() => {
         fetchStakeholders();
     }, []);
@@ -47,7 +47,7 @@ export default function Stakeholders() {
     };
 
     const handleDelete = async (rowData, index) => {
-        if( userRole=="Client" || userRole=="ProjectManager")
+        if( userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -67,7 +67,7 @@ export default function Stakeholders() {
     };
 
     const handleEdit = (index) => {
-        if( userRole=="Client" || userRole=="ProjectManager")
+        if( userRole=="Client")
         {
             alert("You don't have permission");
             return

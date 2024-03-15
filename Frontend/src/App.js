@@ -25,6 +25,8 @@ import AuditHistoryComponent from './pages/AuditHistory';
 import ClientFeedbackForm from './components/Client/ClientFeedbackForm';
 import ClientFeedback from './pages/ClientFeedback';
 import AuditorLayout from './components/Auditor/AuditorLayout';
+import ProjectManagerLayout from './components/ProjectManager/ProjectManagerLayout';
+import ClientLayout from './components/Client/ClientLayout';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(null);
@@ -40,15 +42,22 @@ function App() {
   const clientRoutes = userRole == "Client" && (
     <>
       <Route index element={<ClientDashboard />} />
+      <Route path="/:id" element={<ClientLayout />}>
+        <Route index element={<OverView />} />
+        <Route path="escalationmatrix" element={<EscalationMatrix />} />
+        <Route path="phasemilestone" element={<PhaseMilestones />} />
+        <Route path="overview" element={<OverView />} />
+        <Route path="riskprofile" element={<RiskProfiling />} />
+        <Route path="scopeandstack" element={<ScopeAndStack />} />
+        <Route path="stakeholders" element={<Stakeholders />} />
+        <Route path="sprintdetails" element={<SprintDetails />} />
+        <Route path="VersionHistory" element={<VersionHistory/>} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
       <Route path="/clientfeedbackform" element={<ClientFeedbackForm />} />
+      </Route>
     </>
   );
-  const projectManagerRoutes = userRole == "ProjectManager" && (
-    <>
-      <Route index element={<ProjectManagerDashboard />} />
-      <Route path="/escalationmatrix" element={<EscalationMatrix />} />
-    </>
-  );
+ 
   const adminRoutes = userRole == "Admin" && (
     <>
       <Route index element={<AdminDashboard />} />
@@ -75,6 +84,24 @@ function App() {
       <Route index element={<AuditorDashboard />} />  
       <Route path="/:id" element={<AuditorLayout />}>
         <Route index element={<OverView />} />
+        <Route path="escalationmatrix" element={<EscalationMatrix />} />
+        <Route path="phasemilestone" element={<PhaseMilestones />} />
+        <Route path="overview" element={<OverView />} />
+        <Route path="riskprofile" element={<RiskProfiling />} />
+        <Route path="scopeandstack" element={<ScopeAndStack />} />
+        <Route path="stakeholders" element={<Stakeholders />} />
+        <Route path="sprintdetails" element={<SprintDetails />} />
+        <Route path="VersionHistory" element={<VersionHistory/>} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
+        <Route path="clientfeedback" element={<ClientFeedback/>}/>
+      </Route>
+    </>
+  );
+  const projectManagerRoutes = userRole == "ProjectManager" && (
+    <>
+      <Route index element={<ProjectManagerDashboard />} />  
+      <Route path="/:id" element={<ProjectManagerLayout />}>
+      <Route index element={<OverView />} />
         <Route path="escalationmatrix" element={<EscalationMatrix />} />
         <Route path="phasemilestone" element={<PhaseMilestones />} />
         <Route path="overview" element={<OverView />} />

@@ -59,7 +59,7 @@ const ScopeAndStack = () => {
       const response = await Api.get("/scopeandstake");
       setProjectDetails(response?.data[0]);
       setScopeandstakeId(response?.data[0].id);
-      console.log(data);
+      
     } catch (error) {
       console.log(error);
     }

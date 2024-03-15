@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import PhaseMilestones from "../../pages/PhaseMilestones";
+import DisplayProject from "../../pages/DisplayProject";
+
 
 const ProjectManagerDashboard = () => {
   const { getAccessTokenSilently, isLoading, isAuthenticated } = useAuth0();
@@ -27,25 +28,11 @@ const ProjectManagerDashboard = () => {
     return <div>You must be logged in to view this page.</div>;
   }
 
-  return (
-    <div className="items-center space-y-16">
-      <h1 className="text-4xl font-bold text-center">Project Manager Dashboard</h1>
-      {/* Your PmDashboard specific components go here */}
-
-
-      <div className="flex flex-col items-center space-y-16">
-
-        <div className="w-full p-8 bg-red-50 rounded-lg shadow-md">
-          <h2 className="text-4xl font-bold mb-4 text-red-600 text-center">
-            Approved Team{" "}
-          </h2>
-          <PhaseMilestones />
-        </div>
-
-        
+    return (
+      <div className="items-center space-y-16">
+        <DisplayProject />
       </div>
-    </div>
-  );
-};
-
+    );
+  };
+        
 export default ProjectManagerDashboard;

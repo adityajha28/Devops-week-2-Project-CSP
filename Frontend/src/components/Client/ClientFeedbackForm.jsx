@@ -7,8 +7,6 @@ const ClientFeedbackForm = () => {
     const [feedbackType, setFeedbackType] = useState('');
     const [detailedFeedback, setDetailedFeedback] = useState('');
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-   // const [actionTaken, setActionTaken] = useState(null);
-    //const [closureDate, setClosureDate] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

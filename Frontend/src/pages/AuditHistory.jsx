@@ -52,7 +52,7 @@ export default function AuditHistoryComponent() {
     };
 
     const handleDelete = async (rowData, index) => {
-        if( userRole=="ProjectManger"|| userRole=="Client")
+        if( userRole=="ProjectManager"|| userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -72,7 +72,7 @@ export default function AuditHistoryComponent() {
     };
 
     const handleEdit = (index) => {
-        if( userRole=="ProjectManger"|| userRole=="Client")
+        if( userRole=="ProjectManager"|| userRole=="Client")
         {
             alert("You don't have permission");
             return
@@ -81,13 +81,13 @@ export default function AuditHistoryComponent() {
     };
 
     const handleAddRow = () =>
-     {if( userRole=="ProjectManger"|| userRole=="Client")
+     {if( userRole=="ProjectManager"|| userRole=="Client")
     {
         alert("You don't have permission");
         return
     }
 
-        if( userRole=="ProjectManger"|| userRole=="Client")
+        if( userRole=="ProjectManager"|| userRole=="Client")
         {
             alert("You don't have permission");
             return
