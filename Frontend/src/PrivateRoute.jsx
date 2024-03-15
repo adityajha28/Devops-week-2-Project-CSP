@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import Api from "./api/Api";
 import { useAuth0 } from "@auth0/auth0-react";
 

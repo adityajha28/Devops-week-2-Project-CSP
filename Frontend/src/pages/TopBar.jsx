@@ -4,11 +4,8 @@ import { Flex, Box, Search, Avatar } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
 import "../styling/topbar.css";
 
-import { useNavigate } from "react-router-dom";
-import Api from "../api/Api";
-
 const TopBar = () => {
-  const { isAuthenticated, user, isLoading, loginWithRedirect, logout } =
+  const { isAuthenticated, user,  loginWithRedirect, logout } =
     useAuth0();
   useEffect(()=>{
     console.log("topbar");

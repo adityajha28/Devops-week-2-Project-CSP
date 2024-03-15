@@ -1,7 +1,6 @@
 import { Box, BreadcrumbItem, BreadcrumbsBar, Button, Flex, Heading, Tab, TabList } from 'monday-ui-react-core'
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
-import CreateProject from '../../pages/CreateProject'
 import Api from '../../api/Api';
 
 function AdminLayout() {

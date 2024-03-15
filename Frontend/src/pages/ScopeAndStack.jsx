@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown } from "monday-ui-react-core";
 import "monday-ui-react-core/tokens";
-import axios from "axios";
 import './../styling/scope.css';
 import Api from "../api/Api";
 import { useParams } from "react-router-dom";
@@ -22,7 +20,7 @@ const ScopeAndStack = () => {
     try {
       console.log(scopeandstackId); 
       if(scopeandstackId==''){
-        const { data } = await Api.post(`/scopeandstake`, {
+         await Api.post(`/scopeandstake`, {
           scope: projectDetails["scope"],
           stake: projectDetails["stack"],
           project: {
@@ -31,7 +29,7 @@ const ScopeAndStack = () => {
         })
       }
       else{
-        const { data } = await Api.put(`/scopeandstake/${scopeandstackId}`, {
+        await Api.put(`/scopeandstake/${scopeandstackId}`, {
           scope: projectDetails["scope"],
           stake: projectDetails["stack"],
           project: {

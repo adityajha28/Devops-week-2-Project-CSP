@@ -8,9 +8,9 @@ const AddUserForm = () => {
     email: '',
   });
 
-  const [userList, setUserList] = useState([]);
+  const [ setUserList] = useState([]);
   const [errors, setErrors] = useState({});
-  const [fetch, setFetch] = useState(false);
+ 
 
   const fetchUserList = async () => {
     try {

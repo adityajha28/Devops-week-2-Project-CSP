@@ -8,7 +8,7 @@ const ClientDashboard = () => {
 
   const fetchToken = async () => {
     if (isAuthenticated) {
-      const temp = await getAccessTokenSilently();
+       await getAccessTokenSilently();
     }
   };
   useEffect(() => {
