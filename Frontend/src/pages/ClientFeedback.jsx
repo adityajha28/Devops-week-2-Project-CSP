@@ -76,6 +76,10 @@ const ClientFeedback = () => {
   };
 
   const handleAddRow = () => {
+    if(userRole=="Auditor" || userRole=="Admin" || userRole=="ProjectManager"){
+      alert("You don't have permission");
+      return
+  }
     setFeedbacks([...feedbacks, {
       id: null,
       feedbackType: '',
