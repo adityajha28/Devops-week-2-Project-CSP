@@ -57,7 +57,7 @@ export default function EscalationMatrix() {
     }
 
     const handleDelete = async (rowDate, index) => {
-        if(userRole=="Auditor"){
+        if(userRole=="Auditor" || userRole=="Client"){
             alert("You don't have permission");
             return
         }

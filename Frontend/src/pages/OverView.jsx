@@ -37,7 +37,7 @@ const OverView = () => {
 
   // Function to handle form submission
   const handleSubmit = async () => {
-    if( userRole=="Auditor")
+    if( userRole=="Auditor" || userRole=="Client")
     {
         alert("You don't have permission");
         return

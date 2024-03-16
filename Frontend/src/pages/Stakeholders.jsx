@@ -77,6 +77,10 @@ export default function Stakeholders() {
 
     const handleAddRow = () => {
         if(userRole=="Client")
+        {
+            alert("You don't have permission");
+            return
+        }
         setStakeholders([...stakeholders, {
             title: "",
             name: "",

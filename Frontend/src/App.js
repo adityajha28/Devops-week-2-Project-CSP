@@ -51,13 +51,13 @@ function App() {
         <Route path="scopeandstack" element={<ScopeAndStack />} />
         <Route path="stakeholders" element={<Stakeholders />} />
         <Route path="sprintdetails" element={<SprintDetails />} />
-        <Route path="VersionHistory" element={<VersionHistory/>} />
-        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
-      <Route path="/clientfeedbackform" element={<ClientFeedbackForm />} />
+        <Route path="VersionHistory" element={<VersionHistory />} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent />} />
       </Route>
+      <Route path="/clientfeedbackform" element={<ClientFeedbackForm />} />
     </>
   );
- 
+
   const adminRoutes = userRole == "Admin" && (
     <>
       <Route index element={<AdminDashboard />} />
@@ -70,9 +70,9 @@ function App() {
         <Route path="scopeandstack" element={<ScopeAndStack />} />
         <Route path="stakeholders" element={<Stakeholders />} />
         <Route path="sprintdetails" element={<SprintDetails />} />
-        <Route path="VersionHistory" element={<VersionHistory/>} />
-        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
-        <Route path="clientfeedback" element={<ClientFeedback/>}/>
+        <Route path="VersionHistory" element={<VersionHistory />} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent />} />
+        <Route path="clientfeedback" element={<ClientFeedback />} />
       </Route>
       <Route path="adduserform" element={<AddUserForm />} />
 
@@ -81,7 +81,7 @@ function App() {
 
   const auditorRoutes = userRole == "Auditor" && (
     <>
-      <Route index element={<AuditorDashboard />} />  
+      <Route index element={<AuditorDashboard />} />
       <Route path="/:id" element={<AuditorLayout />}>
         <Route index element={<OverView />} />
         <Route path="escalationmatrix" element={<EscalationMatrix />} />
@@ -91,17 +91,17 @@ function App() {
         <Route path="scopeandstack" element={<ScopeAndStack />} />
         <Route path="stakeholders" element={<Stakeholders />} />
         <Route path="sprintdetails" element={<SprintDetails />} />
-        <Route path="VersionHistory" element={<VersionHistory/>} />
-        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
-        <Route path="clientfeedback" element={<ClientFeedback/>}/>
+        <Route path="VersionHistory" element={<VersionHistory />} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent />} />
+        <Route path="clientfeedback" element={<ClientFeedback />} />
       </Route>
     </>
   );
   const projectManagerRoutes = userRole == "ProjectManager" && (
     <>
-      <Route index element={<ProjectManagerDashboard />} />  
+      <Route index element={<ProjectManagerDashboard />} />
       <Route path="/:id" element={<ProjectManagerLayout />}>
-      <Route index element={<OverView />} />
+        <Route index element={<OverView />} />
         <Route path="escalationmatrix" element={<EscalationMatrix />} />
         <Route path="phasemilestone" element={<PhaseMilestones />} />
         <Route path="overview" element={<OverView />} />
@@ -109,9 +109,9 @@ function App() {
         <Route path="scopeandstack" element={<ScopeAndStack />} />
         <Route path="stakeholders" element={<Stakeholders />} />
         <Route path="sprintdetails" element={<SprintDetails />} />
-        <Route path="VersionHistory" element={<VersionHistory/>} />
-        <Route path="AuditHistory" element={<AuditHistoryComponent/>} />
-        <Route path="clientfeedback" element={<ClientFeedback/>}/>
+        <Route path="VersionHistory" element={<VersionHistory />} />
+        <Route path="AuditHistory" element={<AuditHistoryComponent />} />
+        <Route path="clientfeedback" element={<ClientFeedback />} />
       </Route>
     </>
   );
@@ -131,7 +131,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    
+
   );
 }
 

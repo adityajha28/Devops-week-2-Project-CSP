@@ -7,6 +7,7 @@ import "../styling/topbar.css";
 const TopBar = () => {
   const { isAuthenticated, user, loginWithRedirect, logout } =
     useAuth0();
+    const userRole=localStorage.getItem("userRole")||"Client";
   useEffect(()=>{
     console.log("topbar");
   },[]);
@@ -56,6 +57,10 @@ const TopBar = () => {
               <Flex direction="Column">
                 <p className="font-bold text-lg">
                   {isAuthenticated ? user.name || user.email : "Guest"}
+
+                </p>
+                <p className="">
+                  {userRole}
                 </p>
               </Flex>
             </Box>
