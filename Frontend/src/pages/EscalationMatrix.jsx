@@ -63,7 +63,7 @@ export default function EscalationMatrix() {
         }
         // Function to handle deleting a row
 
-        const getConfimation = confirm("Do you really want to delete it");
+        const getConfimation = window.confirm("Do you really want to delete it");
         console.log(getConfimation);
         if (getConfimation == true) {
             // If the user confirms deletion

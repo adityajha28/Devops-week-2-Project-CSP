@@ -72,7 +72,6 @@ const OverView = () => {
         });
         console.log(data);
       }
-      setChangesMade(false);
     } catch (error) { }
   };
   // Function to fetch data from the backend

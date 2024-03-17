@@ -19,13 +19,11 @@ const ProjectManagerDashboard = () => {
   }, [getAccessTokenSilently, isAuthenticated]);
 
   if (isLoading) {
-    toast.info('Loading...');
     return <div>Loading...</div>;
   }
 
   if (!isAuthenticated) {
-    toast.error('You must be logged in to view this page.');
-    return <div>You must be logged in to view this page.</div>;
+     return <div>You must be logged in to view this page.</div>;
   }
 
     return (
