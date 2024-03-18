@@ -37,6 +37,11 @@ const OverView = () => {
 
   // Function to handle form submission
   const handleSubmit = async () => {
+
+    if(projectBrief=='' || objectives =='' || purpose =='' || goals==''||budget==''){
+      window.alert("Fill all values");
+      return;
+    }
     if( userRole=="Auditor" || userRole=="Client")
     {
         alert("You don't have permission");

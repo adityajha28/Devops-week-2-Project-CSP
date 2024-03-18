@@ -37,7 +37,11 @@ export default function PhaseMilestones() {
     };
  // Handle saving milestone data
     const handleSave = async (rowData) => {
-        
+        console.log(rowData);
+        if((rowData?.title=='') || (rowData?.startDate=='') || (rowData?.completionDate=='') || (rowData?.approvalDate=='') || (rowData?.status=='') || (rowData?.revisedCompletionDate=='') || (rowData?.comments=='')){
+            window.alert("Fill all values");
+            return;
+        }
         try {
             setEditedRowIndex(-1);
             if (rowData.id) {
@@ -62,12 +66,15 @@ export default function PhaseMilestones() {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
                 await Api.delete(`/phasemilestones/${rowData.id}`);
-                const updatedMilestones = [...milestones];
-                updatedMilestones.splice(index, 1);
-                setMilestones(updatedMilestones);
+                
             }
         } catch (error) {
             console.error("Error deleting milestone:", error);
+        }
+        finally{
+            const updatedMilestones = [...milestones];
+            updatedMilestones.splice(index, 1);
+            setMilestones(updatedMilestones);
         }
         setEditedRowIndex(-1);
     };
@@ -133,6 +140,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                     { id: 'title', loadingStateType: 'long-text', title: 'Title' },
                     { id: 'startDate', loadingStateType: 'long-text', title: 'Start Date' },
                     { id: 'completionDate', loadingStateType: 'long-text', title: 'Completion Date' },
+                    { id: 'approvalDate', loadingStateType: 'long-text', title: 'Approval Date'},
                     { id: 'status', loadingStateType: 'long-text', title: 'Status' },
                     { id: 'revisedCompletionDate', loadingStateType: 'long-text', title: 'Revised Completion Date' },
                     { id: 'comments', loadingStateType: 'long-text', title: 'Comments' },
@@ -144,6 +152,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                         <TableHeaderCell title="Completion Date" />
                         <TableHeaderCell title="Status" />
                         <TableHeaderCell title="Revised Completion Date" />
+                        <TableHeaderCell title="Approval Date" />
                         <TableHeaderCell title="Comments" />
                         <TableHeaderCell title="Action" />
                     </TableHeader>
@@ -181,6 +190,7 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                     readOnly={editedRowIndex != index}
                                     className="border-none w-full"
                                 >
+                                    <option selected={true} disabled={true} value=''>Select Status</option>
                                     <option value="Delayed">Delayed</option>
                                     <option value="On-time">On-time</option>
                                     <option value="Sign-off">Sign-of</option>
@@ -192,6 +202,13 @@ const DynamicTable = ({ tableHeaders, milestones, handleAddRow, handleChange, ha
                                     <input
                                         onChange={(e) => handleChange(index, "revisedCompletionDate", e.target.value)}
                                         type="date" style={{ "border": "none" }} value={row.revisedCompletionDate}
+                                        readOnly={editedRowIndex != index}
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <input
+                                        onChange={(e) => handleChange(index, "approvalDate", e.target.value)}
+                                        type="date" style={{ "border": "none" }} value={row.approvalDate}
                                         readOnly={editedRowIndex != index}
                                     />
                                 </TableCell>

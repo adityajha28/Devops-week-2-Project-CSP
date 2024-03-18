@@ -8,6 +8,7 @@ const PrivateRoute = ({ component: Component,authenticated,setAuthenticated, ...
     const { user } =useAuth0();
     const checkLogin = async () => {
         try {
+            console.log("user",user)
             const response = await Api.get(`application-user/${user.email}`);
             localStorage.setItem("userRole", response.data.role || "Client");
             console.log(response.data.role);
@@ -22,7 +23,7 @@ const PrivateRoute = ({ component: Component,authenticated,setAuthenticated, ...
         checkLogin();
     }, [user]);
 
-    if (authenticated === null) {
+    if (authenticated == '') {  
         return <div>Loading...</div>;
     }
 

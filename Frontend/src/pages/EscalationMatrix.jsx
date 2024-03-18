@@ -32,6 +32,11 @@ export default function EscalationMatrix() {
     }
 
     const handleSave = async (rowData) => { 
+
+        if((rowData?.escalationLevel=='') || (rowData?.role=='') || (rowData?.name=='') || (rowData?.type=='')){
+            window.alert("Fill all values");
+            return;
+        }
         // Function to handle saving data
 
         console.log(rowData);
@@ -57,6 +62,7 @@ export default function EscalationMatrix() {
     }
 
     const handleDelete = async (rowDate, index) => {
+        setEditedRowIndex(-1);
         if(userRole=="Auditor" || userRole=="Client"){
             alert("You don't have permission");
             return
@@ -69,16 +75,15 @@ export default function EscalationMatrix() {
             // If the user confirms deletion
 
             await Api.delete(`escalation-matrix/${rowDate.id}`,).then((res) => {
-                // Send delete request to the API endpoint
-
-                const newData = [...data];// Create a copy of the data array
-                newData.splice(index, 1);// Remove the deleted row from the copied data array
-                setData(newData);// Update the state variable with the modified data
             }).catch((err) => {
                 console.log(err);// Log any errors that occur during the deletion process
+            }).finally(()=>{
+                const newData = [...data];// Create a copy of the data array
+                newData.splice(index, 1);// Remove the deleted row from the copied data array
+                setData(newData);
             })
         }
-        setEditedRowIndex(-1);// Reset the edited row index
+       // Reset the edited row index
     }
 
     const handleAddRow = () => {

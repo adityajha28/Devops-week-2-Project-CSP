@@ -4,10 +4,11 @@ import Api from "../api/Api";
 import { useNavigate } from "react-router-dom";
 
 function UserLogin() {
-  const { isAuthenticated, user, isLoading, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, user, isLoading, loginWithRedirect,loginWithPopup } = useAuth0();
   const navigate = useNavigate();
 
   const fetchUserRole = async () => {
+    console.log(user);
     try {
       if (isAuthenticated) {
         const response = await Api.get(`application-user/${user.email}`);
@@ -15,12 +16,12 @@ function UserLogin() {
         if (response.data.role != '') {
           localStorage.setItem("userRole", response.data.role || "Client");
         } else {
-          await Api.put(`/application-user/${user.email}`, {
-            name: user.name,
-            email: user.email,
-            role: "Admin"
+          await Api.put(`/application-user/${user.email}`,{
+            name:user.name,
+            email:user.email,
+            role:"Client"
           });
-          localStorage.setItem("userRole", "Admin" || "Client");
+          localStorage.setItem("userRole","Client");
         }
         navigate('/');
       }
@@ -35,7 +36,8 @@ function UserLogin() {
   }, [isAuthenticated, isLoading, navigate]);
 
   const handleLogIn = () => {
-    loginWithRedirect();
+    
+    loginWithPopup();
   };
 
   return (

@@ -19,7 +19,7 @@ public class ClientFeedback {
     private String feedbackType;
 
     @Column(name = "date_received", nullable = false)
-        private Date dateReceived;
+        private String dateReceived;
 
     @Column(name = "detailed_feedback", columnDefinition = "TEXT")
     private String detailedFeedback;
@@ -28,13 +28,13 @@ public class ClientFeedback {
     private String actionTaken;
 
     @Column(name = "closure_date")
-    private Date closureDate;
+    private String closureDate;
 
     public ClientFeedback() {
         // Default constructor required by JPA
     }
 
-    public ClientFeedback(Project project, String feedbackType, Date dateReceived, String detailedFeedback, String actionTaken, Date closureDate) {
+    public ClientFeedback(Project project, String feedbackType, String dateReceived, String detailedFeedback, String actionTaken, String closureDate) {
         this.project = project;
         this.feedbackType = feedbackType;
         this.dateReceived = dateReceived;
@@ -67,11 +67,11 @@ public class ClientFeedback {
         this.feedbackType = feedbackType;
     }
 
-    public Date getDateReceived() {
+    public String getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(Date dateReceived) {
+    public void setDateReceived(String dateReceived) {
         this.dateReceived = dateReceived;
     }
 
@@ -91,11 +91,11 @@ public class ClientFeedback {
         this.actionTaken = actionTaken;
     }
 
-    public Date getClosureDate() {
+    public String getClosureDate() {
         return closureDate;
     }
 
-    public void setClosureDate(Date closureDate) {
+    public void setClosureDate(String closureDate) {
         this.closureDate = closureDate;
     }
 }

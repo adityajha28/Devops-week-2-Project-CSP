@@ -25,6 +25,7 @@ public class ProjectUpdatesController {
         return new ResponseEntity<>(savedProjectUpdates, HttpStatus.CREATED);
     }
 
+    
     // Read all
     @GetMapping
     public ResponseEntity<List<ProjectUpdates>> getAllProjectUpdates() {
@@ -61,5 +62,10 @@ public class ProjectUpdatesController {
         }
         projectUpdatesRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+   
+        
     }
 }
+
+    
+

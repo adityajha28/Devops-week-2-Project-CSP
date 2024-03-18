@@ -34,7 +34,8 @@ public class PromactCustomerSuccessApplication {
             applicationUserRepository.save(user1);
         };
     }
-    
+
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

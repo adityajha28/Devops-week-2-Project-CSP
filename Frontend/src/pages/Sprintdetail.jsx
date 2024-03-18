@@ -32,6 +32,12 @@ export default function SprintDetails() {
     };
   // Function to save sprint detail
     const handleSave = async (rowData) => {
+
+        console.log(rowData);
+        if((rowData?.sprintNumber=='') || (rowData?.startDate=='') || (rowData?.endDate=='') || (rowData?.status=='') || (rowData?.comments=='')){
+            window.alert("Fill all values");
+            return;
+        }
         try {
             setEditedRowIndex(-1);
             if (rowData.id) {
@@ -57,12 +63,15 @@ export default function SprintDetails() {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
                 await Api.delete(`/sprintdetails/${rowData.id}`);
-                const updatedSprintDetails = [...sprintDetails];
-                updatedSprintDetails.splice(index, 1);
-                setSprintDetails(updatedSprintDetails);
+               
             }
         } catch (error) {
             console.error("Error deleting sprint detail:", error);
+        }
+        finally{
+            const updatedSprintDetails = [...sprintDetails];
+            updatedSprintDetails.splice(index, 1);
+            setSprintDetails(updatedSprintDetails);
         }
         setEditedRowIndex(-1);
     };
@@ -138,7 +147,7 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                         <TableRow key={index}>
                             <TableCell>
                                 <input
-                                    type="text"
+                                    type="number"
                                     value={row.sprintNumber}
                                     style={{ "border": "none" }}
                                     onChange={(e) => handleChange(index, "sprintNumber", e.target.value)}
@@ -171,6 +180,7 @@ const DynamicTable = ({ tableHeaders, sprintDetails, handleAddRow, handleChange,
                                     readOnly={editedRowIndex != index}
                                     className="border-none w-full"
                                 >
+                                    <option selected={true} disabled={true} value=''> Status Type: </option>
                                     <option value="Delayed">Delayed</option>
                                     <option value="On-time">On-time</option>
                                     <option value="Sign-off">Sign-of</option>

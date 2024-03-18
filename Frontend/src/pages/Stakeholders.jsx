@@ -31,6 +31,12 @@ export default function Stakeholders() {
     };
 
     const handleSave = async (rowData) => {
+
+        console.log(rowData);
+        if((rowData?.title=='') || (rowData?.name=='') || (rowData?.contact=='')){
+            window.alert("Fill all values");
+            return;
+        }
         try {
             console.log("newdata",rowData);
             setEditedRowIndex(-1);
@@ -56,12 +62,16 @@ export default function Stakeholders() {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
                 await Api.delete(`/stakeholders/${rowData.id}`);
-                const updatedStakeholders = [...stakeholders];
-                updatedStakeholders.splice(index, 1);
-                setStakeholders(updatedStakeholders);
+                
             }
         } catch (error) {
             console.error("Error deleting stakeholder:", error);
+        }
+        finally{
+            const updatedStakeholders = [...stakeholders];
+                updatedStakeholders.splice(index, 1);
+                setStakeholders(updatedStakeholders);
+
         }
         setEditedRowIndex(-1);
     };

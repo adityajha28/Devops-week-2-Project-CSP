@@ -32,6 +32,11 @@ export default function RiskProfiling() {
     };
 // Function to save risk profile data
     const handleSave = async (rowData) => {
+        console.log(rowData);
+        if((rowData?.riskType=='') || (rowData?.description=='') || (rowData?.severity=='') || (rowData?.impact=='') || (rowData?.remedialSteps=='') || (rowData?.status=='') || (rowData?.closureDate=='')){
+            window.alert("Fill all values");
+            return;
+        }
        
         try {
             if (rowData.id) {
@@ -58,13 +63,17 @@ export default function RiskProfiling() {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
                 await Api.delete(`/riskprofilings/${rowData.id}`);
-                const updatedRiskProfiles = [...riskProfiles];
-                updatedRiskProfiles.splice(index, 1);
-                setRiskProfiles(updatedRiskProfiles);
+               
             }
         } catch (error) {
             console.error("Error deleting risk profile:", error);
         }
+        finally{
+            const updatedRiskProfiles = [...riskProfiles];
+            updatedRiskProfiles.splice(index, 1);
+            setRiskProfiles(updatedRiskProfiles);
+        }
+            
         setEditedRowIndex(-1);
     };
 
@@ -151,6 +160,7 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                                     readOnly={editedRowIndex !== index}
                                     className="border-none w-full"
                                 >
+                                     <option selected={true} disabled={true} value=''> Select RiskProfiling Type: </option>
                                     <option value="finacial">Financial</option>
                                     <option value="operation">Operational</option>
                                     <option value="technical">Technical</option>
@@ -175,6 +185,7 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                                     readOnly={editedRowIndex !== index}
                                     className="border-none w-full"
                                 >
+                                     <option selected={true} disabled={true} value=''> Severity Type: </option>
                                     <option value="High">High</option>
                                     <option value="Medium">Medium</option>
                                     <option value="Low">Low</option>
@@ -188,7 +199,7 @@ const DynamicTable = ({ tableHeaders, riskProfiles, handleAddRow, handleChange, 
                                     value={row.impact}
                                     readOnly={editedRowIndex !== index}
                                     className="border-none w-full"
-                                >
+                                > <option selected={true} disabled={true} value=''> Impact Type: </option>
                                     <option value="High">High</option>
                                     <option value="Medium">Medium</option>
                                     <option value="Low">Low</option>

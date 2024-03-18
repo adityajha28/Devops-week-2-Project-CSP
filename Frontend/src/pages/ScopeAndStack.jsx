@@ -12,6 +12,12 @@ const ScopeAndStack = () => {
   const userRole=localStorage.getItem("userRole");
 
   const handleSubmit = async () => {
+    if( projectDetails["scope"]==''|| projectDetails["stack"])
+    {
+      window.alert("Fill all values");
+      return;
+    }
+
     if( userRole=="Auditor"||userRole=="Client")
         {
             alert("You don't have permission");

@@ -23,6 +23,7 @@ public class ClientFeedbackController {
         ClientFeedback savedClientFeedback = clientFeedbackRepository.save(clientFeedback);
         return new ResponseEntity<>(savedClientFeedback, HttpStatus.CREATED);
     }
+    
 
     // Read all
     @GetMapping

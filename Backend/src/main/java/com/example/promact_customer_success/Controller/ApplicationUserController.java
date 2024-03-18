@@ -46,16 +46,6 @@ public class ApplicationUserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Update
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ApplicationUser> updateApprovedTeam(@PathVariable Integer id, @RequestBody ApplicationUser updatedUser) {
-//        if (!applicationUserRepository.existsById(id)) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        updatedUser.setId(id);
-//        ApplicationUser savedApplicationUser = applicationUserRepository.save(updatedUser);
-//        return new ResponseEntity<>(savedApplicationUser, HttpStatus.OK);
-//    }
 
     @PutMapping("/{email}")
     public ResponseEntity<ApplicationUser> updateApprovedTeam(@PathVariable String email, @RequestBody ApplicationUser updatedUser) {
@@ -72,18 +62,6 @@ public class ApplicationUserController {
     }
 
 
-//    @PutMapping("/{email}")
-//    public ResponseEntity<ApplicationUser> updateApprovedTeam(@PathVariable String email, @RequestBody ApplicationUser updatedUser) {
-//        List<ApplicationUser> applicationUsers = (List<ApplicationUser>) applicationUserRepository.findAll();
-//        for (ApplicationUser user : applicationUsers) {
-//            if (user.getEmail().equals(email)) {
-//                user.setRole(updatedUser.getRole());
-//                user.setProject(updatedUser.getProject());
-//                ApplicationUser savedApplicationUser = applicationUserRepository.save(user);
-//                return new ResponseEntity<>(savedApplicationUser, HttpStatus.OK);
-//            }
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 //    }
 
     // Delete

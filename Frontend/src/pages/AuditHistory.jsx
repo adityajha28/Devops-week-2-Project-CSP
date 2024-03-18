@@ -36,7 +36,10 @@ export default function AuditHistoryComponent() {
     };
 
     const handleSave = async (rowData) => {
-
+        if((rowData?.dateOfAudit=='') || (rowData?.reviewedBy=='') || (rowData?.status=='') || (rowData?.reviewedSection=='') || (rowData?.actionItem=='')||(rowData?.commentQueries=='')){
+            window.alert("Fill all values");
+            return;
+        }
         // Function to handle saving edited or new audit history data
         try {
             setEditedRowIndex(-1);

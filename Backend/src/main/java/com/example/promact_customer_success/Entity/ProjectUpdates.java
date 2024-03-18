@@ -16,7 +16,7 @@ public class ProjectUpdates {
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
     @Column(name = "date", nullable = false)
-    private Date date;
+    private String date;
 
     @Column(name = "general_updates", columnDefinition = "TEXT")
     private String generalUpdates;
@@ -25,7 +25,7 @@ public class ProjectUpdates {
         // Default constructor required by JPA
     }
 
-    public ProjectUpdates(Project project, Date date, String generalUpdates) {
+    public ProjectUpdates(Project project, String date, String generalUpdates) {
         this.project = project;
         this.date = date;
         this.generalUpdates = generalUpdates;
@@ -39,11 +39,11 @@ public class ProjectUpdates {
         this.project = project;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

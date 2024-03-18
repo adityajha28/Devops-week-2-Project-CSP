@@ -8,7 +8,7 @@ const AddUserForm = () => {
     email: '',
   });
 
-  const [ userList,setUserList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [errors, setErrors] = useState({});
   const [fetch, setFetch] = useState(false);
 
@@ -47,18 +47,23 @@ const AddUserForm = () => {
   };
 
   const handleAddUser = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
 
-    if (validateForm()) {
-      try {
-        await Api.post('application-user', userData);
-        setUserData({ role: 'Client', email: '', name: '' });
-      } catch (error) {
-        // Handle errors
-        console.error(error);
+    e.preventDefault(); // Prevent the default form submission behavior
+    if ((userData.name == '') || (userData.role == '') || (userData.email == '')) {
+      window.alert("Fill all values");
+    }
+    else {
+      if (validateForm()) {
+        try {
+          await Api.post('application-user', userData);
+          setUserData({ role: 'Client', email: '', name: '' });
+        } catch (error) {
+          // Handle errors
+          console.error(error);
+        }
       }
     }
-  };
+  }
 
   return (
     <div className="w-full">

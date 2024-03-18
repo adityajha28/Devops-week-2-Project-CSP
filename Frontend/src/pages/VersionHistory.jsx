@@ -31,6 +31,11 @@ export default function VersionHistory() {
     };
 
     const handleSave = async (rowData) => {
+
+        if((rowData?.version=='') || (rowData?.changeType=='') || (rowData?.changeReason=='')|| (rowData?.createdBy=='')|| (rowData?.revisionDate=='')|| (rowData?.approvalDate=='')|| (rowData?.approvedBy=='')){
+            window.alert("Fill all values");
+            return;
+        }
         try {
             setEditedRowIndex(-1);
             if (rowData.id) {
@@ -55,12 +60,15 @@ export default function VersionHistory() {
             const confirmation = window.confirm("Do you really want to delete it?");
             if (confirmation) {
                 await Api.delete(`/versionhistory/${rowData.id}`);
-                const updatedVersions = [...versions];
-                updatedVersions.splice(index, 1);
-                setVersions(updatedVersions);
+                
             }
         } catch (error) {
             console.error("Error deleting version:", error);
+        }
+        finally{
+            const updatedVersions = [...versions];
+                updatedVersions.splice(index, 1);
+                setVersions(updatedVersions);
         }
         setEditedRowIndex(-1);
     };
@@ -142,7 +150,7 @@ const DynamicTable = ({ tableHeaders, versions, handleAddRow, handleChange, hand
                             <TableRow key={index}>
                                 <TableCell>
                                     <input
-                                        type="text"
+                                        type="number"
                                         value={row.version}
                                         style={{ "border": "none" }}
                                         onChange={(e) => handleChange(index, "version", e.target.value)}

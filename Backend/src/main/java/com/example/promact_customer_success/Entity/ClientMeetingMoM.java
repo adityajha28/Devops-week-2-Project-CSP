@@ -1,7 +1,7 @@
 package com.example.promact_customer_success.Entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.lang.*;
 
 @Entity
 @Table(name = "client_meeting_mom")
@@ -16,7 +16,7 @@ public class ClientMeetingMoM {
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
     @Column(name = "meeting_date", nullable = false)
-    private Date meetingDate;
+    private String meetingDate;
 
     @Column(name = "duration")
     private String duration;
@@ -31,7 +31,7 @@ public class ClientMeetingMoM {
         // Default constructor required by JPA
     }
 
-    public ClientMeetingMoM(Project project, Date meetingDate, String duration, String momLink, String comments) {
+    public ClientMeetingMoM(Project project, String meetingDate, String duration, String momLink, String comments) {
         this.project = project;
         this.meetingDate = meetingDate;
         this.duration = duration;
@@ -55,11 +55,11 @@ public class ClientMeetingMoM {
         this.project = project;
     }
 
-    public Date getMeetingDate() {
+    public String getMeetingDate() {
         return meetingDate;
     }
 
-    public void setMeetingDate(Date meetingDate) {
+    public void setMeetingDate(String meetingDate) {
         this.meetingDate = meetingDate;
     }
 

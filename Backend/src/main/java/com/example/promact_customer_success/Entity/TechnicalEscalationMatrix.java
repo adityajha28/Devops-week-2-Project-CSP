@@ -16,6 +16,7 @@ public class TechnicalEscalationMatrix {
 
     @Column(name = "escalation_level")
     private Integer escalationLevel;
+    
 
     @Column(name = "name", nullable = false, length = 255)
     private String name;

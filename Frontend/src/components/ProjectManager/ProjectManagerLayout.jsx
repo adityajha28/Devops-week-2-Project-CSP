@@ -74,11 +74,21 @@ function ProjectManagerLayout() {
                         <Link to='VersionHistory'>Version History</Link>
                     </div>
                     <div className=" border-b-2 border-transparent hover:border-blue-500 ">
+                        <Link to='mom'>Mom of client meeting </Link>
+                    </div>
+                    <div className=" border-b-2 border-transparent hover:border-blue-500 ">
+                        <Link to='projectupdates'>Project Updates </Link>
+                    </div>
+                    <div className=" border-b-2 border-transparent hover:border-blue-500 ">
+                        <Link to='resource'>Resources</Link>
+                    </div>
+                    <div className=" border-b-2 border-transparent hover:border-blue-500 ">
                         <Link to='AuditHistory'>Audit History</Link>
                     </div>
                     <div className=" border-b-2 border-transparent hover:border-blue-500 ">
                         <Link to='clientfeedback'>Client Feedback</Link>
                     </div>
+                    
                 </div>
             </div>
 

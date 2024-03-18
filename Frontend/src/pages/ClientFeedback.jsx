@@ -33,6 +33,10 @@ const ClientFeedback = () => {
   };
 
   const handleSave = async (rowData) => {
+    if((rowData?.feedbackType=='') || (rowData?.dateReceived=='') || (rowData?.detailedFeedback=='') || (rowData?.actionTaken=='') || (rowData?.closureDate=='')){
+      window.alert("Fill all values");
+      return;
+    }
     try {
         setEditedRowIndex(-1);
       if (rowData.id) {
@@ -48,7 +52,7 @@ const ClientFeedback = () => {
   };
 
   const handleDelete = async (rowData, index) => {
-    if(userRole=="Auditor" || userRole=="Admin" || userRole=="ProjectManager"){
+    if(userRole=="Auditor" ||  userRole=="ProjectManager"){
         alert("You don't have permission");
         return
     }
@@ -57,18 +61,21 @@ const ClientFeedback = () => {
       const confirmation = window.confirm('Do you really want to delete it?');
       if (confirmation) {
         await Api.delete(`/clientfeedbacks/${rowData.id}`);
-        const updatedFeedbacks = [...feedbacks];
-        updatedFeedbacks.splice(index, 1);
-        setFeedbacks(updatedFeedbacks);
+      
       }
     } catch (error) {
       console.error('Error deleting client feedback:', error);
+    }
+    finally{
+      const updatedFeedbacks = [...feedbacks];
+      updatedFeedbacks.splice(index, 1);
+      setFeedbacks(updatedFeedbacks);
     }
     setEditedRowIndex(-1);
   };
 
   const handleEdit = (index) => {
-    if(userRole=="Auditor" || userRole=="Admin" || userRole=="ProjectManager"){
+    if(userRole=="Auditor" ||  userRole=="ProjectManager"){
         alert("You don't have permission");
         return
     }
@@ -76,7 +83,7 @@ const ClientFeedback = () => {
   };
 
   const handleAddRow = () => {
-    if(userRole=="Auditor" || userRole=="Admin" || userRole=="ProjectManager"){
+    if(userRole=="Auditor" ||  userRole=="ProjectManager"){
       alert("You don't have permission");
       return
   }

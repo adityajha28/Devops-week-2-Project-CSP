@@ -4,7 +4,7 @@ import Api from '../api/Api';
 
 const CreateProject = ({ showModal, setShowModal }) => {
     const [step, setStep] = useState(1);
-    const [ setProjectId] = useState(-1);
+    const [setProjectId] = useState(-1);
     const [projectManagers, setProjectManager] = useState([]);
     const [formData, setFormData] = useState({
         projectName: '',
@@ -56,34 +56,38 @@ const CreateProject = ({ showModal, setShowModal }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission here (e.g., send data to backend)
-        //add project to client
-        await Api.post("/project", { name: formData.projectName, description: formData.projectDescription }).then((e) => {
-            console.log(e.data.id);
-            setProjectId(e.data?.id);
-            Api.put(`/application-user/${formData.clientEmail}`, {
-                name: formData.clientName, email: formData.clientEmail, role: "Client", project: {
-                    "id": e.data?.id
-                }
-            }).then((e) => {
-                console.log(e);
+        if ((formData.projectName == '') || (formData.projectDescription == '') || (FormData.clientName == '') || (FormData.clientEmail == '') || (FormData.projectManager == '')) {
+            window.alert("Fill all values");
+        }
+        else {
+            await Api.post("/project", { name: formData.projectName, description: formData.projectDescription }).then((e) => {
+                console.log(e.data.id);
+                setProjectId(e.data?.id);
+                Api.put(`/application-user/${formData.clientEmail}`, {
+                    name: formData.clientName, email: formData.clientEmail, role: "Client", project: {
+                        "id": e.data?.id
+                    }
+                }).then((e) => {
+                    console.log(e);
+                    window.location.href = 'http://localhost:3000/';
+                }).catch((e) => {
+                    console.log(e);
+                })
             }).catch((e) => {
                 console.log(e);
             })
-        }).catch((e) => {
-            console.log(e);
-        })
-        console.log('Form submitted:', formData);
-        // Reset form data and step after submission
-        setFormData({
-            projectName: '',
-            projectDescription: '',
-            clientName: '',
-            clientEmail: '',
-            projectManager: '',
-        });
-        setStep(1);
-        setShowModal(false); // Close the modal after form submission
+            console.log('Form submitted:', formData);
+            // Reset form data and step after submission
+            setFormData({
+                projectName: '',
+                projectDescription: '',
+                clientName: '',
+                clientEmail: '',
+                projectManager: '',
+            });
+            setStep(1);
+            setShowModal(false);
+        } // Close the modal after form submission
     };
 
     return (

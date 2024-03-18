@@ -27,6 +27,9 @@ import ClientFeedback from './pages/ClientFeedback';
 import AuditorLayout from './components/Auditor/AuditorLayout';
 import ProjectManagerLayout from './components/ProjectManager/ProjectManagerLayout';
 import ClientLayout from './components/Client/ClientLayout';
+import ClientMeetingMoMManagement from './pages/ClientMeetingMoMManagement';
+import ProjectUpdatesManagement from './pages/ProjectUpdatesManagement';
+import ResourceManagement from './pages/ResourceManagement';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(null);
@@ -53,8 +56,11 @@ function App() {
         <Route path="sprintdetails" element={<SprintDetails />} />
         <Route path="VersionHistory" element={<VersionHistory />} />
         <Route path="AuditHistory" element={<AuditHistoryComponent />} />
+        <Route path="mom" element={<ClientMeetingMoMManagement/>} />
+        <Route path="projectupdates" element={<ProjectUpdatesManagement />} />
+        <Route path="resource" element={<ResourceManagement/>} />
       </Route>
-      <Route path="/clientfeedbackform" element={<ClientFeedbackForm />} />
+      <Route path="clientfeedbackform" element={<ClientFeedbackForm />} />
     </>
   );
 
@@ -73,6 +79,9 @@ function App() {
         <Route path="VersionHistory" element={<VersionHistory />} />
         <Route path="AuditHistory" element={<AuditHistoryComponent />} />
         <Route path="clientfeedback" element={<ClientFeedback />} />
+        <Route path="mom" element={<ClientMeetingMoMManagement/>} />
+        <Route path="projectupdates" element={<ProjectUpdatesManagement />} />
+        <Route path="resource" element={<ResourceManagement/>} />
       </Route>
       <Route path="adduserform" element={<AddUserForm />} />
 
@@ -94,6 +103,10 @@ function App() {
         <Route path="VersionHistory" element={<VersionHistory />} />
         <Route path="AuditHistory" element={<AuditHistoryComponent />} />
         <Route path="clientfeedback" element={<ClientFeedback />} />
+        <Route path="mom" element={<ClientMeetingMoMManagement/>} />
+        <Route path="projectupdates" element={<ProjectUpdatesManagement />} />
+        <Route path="resource" element={<ResourceManagement/>} />
+
       </Route>
     </>
   );
@@ -112,6 +125,9 @@ function App() {
         <Route path="VersionHistory" element={<VersionHistory />} />
         <Route path="AuditHistory" element={<AuditHistoryComponent />} />
         <Route path="clientfeedback" element={<ClientFeedback />} />
+        <Route path="mom" element={<ClientMeetingMoMManagement/>} />
+        <Route path="projectupdates" element={<ProjectUpdatesManagement />} />
+        <Route path="resource" element={<ResourceManagement/>} />
       </Route>
     </>
   );
