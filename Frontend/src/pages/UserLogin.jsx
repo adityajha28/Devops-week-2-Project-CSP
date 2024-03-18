@@ -4,7 +4,7 @@ import Api from "../api/Api";
 import { useNavigate } from "react-router-dom";
 
 function UserLogin() {
-  const { isAuthenticated, user, isLoading, loginWithRedirect,loginWithPopup } = useAuth0();
+  const { isAuthenticated, user, isLoading, loginWithRedirect,loginWithPopup,logout } = useAuth0();
   const navigate = useNavigate();
 
   const fetchUserRole = async () => {
@@ -40,6 +40,11 @@ function UserLogin() {
     loginWithPopup();
   };
 
+  const handleLogout=()=>{
+    logout({ logoutParams: { returnTo: window.location.origin } });
+    localStorage.setItem("userRole","");
+  }
+
   return (
     <div className="w-1/4 mx-auto my-auto">
       <div className="flex flex-col items-center h-screen">
@@ -47,7 +52,7 @@ function UserLogin() {
         <button
           onClick={() =>
             isAuthenticated
-              ? ''
+              ? handleLogout()
               : handleLogIn()
           }
           className="bg-blue-500 text-white px-4 py-2 text-lg font-bold rounded"
