@@ -55,8 +55,9 @@ function UserLogin() {
     loginWithPopup();
   };
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout=()=>{
+    logout({ logoutParams: { returnTo: window.location.origin } });
+    localStorage.setItem("userRole","");
   }
 
   return (
