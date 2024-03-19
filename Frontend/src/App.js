@@ -59,6 +59,7 @@ function App() {
         <Route path="mom" element={<ClientMeetingMoMManagement/>} />
         <Route path="projectupdates" element={<ProjectUpdatesManagement />} />
         <Route path="resource" element={<ResourceManagement/>} />
+        <Route path="clientfeedback" element={<ClientFeedback />} />
       </Route>
       <Route path="clientfeedbackform" element={<ClientFeedbackForm />} />
     </>

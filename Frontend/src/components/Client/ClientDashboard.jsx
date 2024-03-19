@@ -39,7 +39,7 @@ const ClientDashboard = () => {
   return (
     <div className="items-center space-y-16">
       <DisplayProject />
-      <ClientFeedback/>
+      
     </div>
   );
 };

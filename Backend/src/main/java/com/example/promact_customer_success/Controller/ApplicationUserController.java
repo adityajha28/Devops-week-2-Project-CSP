@@ -22,7 +22,7 @@ public class ApplicationUserController {
     @PostMapping
     public ResponseEntity<ApplicationUser> createApprovedTeam(@RequestBody ApplicationUser applicationUser) {
         ApplicationUser savedApplicatoinUser = applicationUserRepository.save(applicationUser);
-        //trigger email
+        // trigger email
         return new ResponseEntity<>(savedApplicatoinUser, HttpStatus.CREATED);
 
     }
@@ -37,18 +37,21 @@ public class ApplicationUserController {
     // Read by id
     @GetMapping("/{email}")
     public ResponseEntity<ApplicationUser> getApprovedTeamById(@PathVariable String email) {
-        List<ApplicationUser> applicationUsers =(List<ApplicationUser>) applicationUserRepository.findAll();
+        List<ApplicationUser> applicationUsers = (List<ApplicationUser>) applicationUserRepository.findAll();
         for (ApplicationUser user : applicationUsers) {
-            if (user.getEmail().equals(email)) {
-                return new ResponseEntity<>(user, HttpStatus.OK);
+            if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+                if (user.getEmail().equalsIgnoreCase(email)) {
+                    return new ResponseEntity<>(user, HttpStatus.OK);
+                }
             }
+
         }
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
     @PutMapping("/{email}")
-    public ResponseEntity<ApplicationUser> updateApprovedTeam(@PathVariable String email, @RequestBody ApplicationUser updatedUser) {
+    public ResponseEntity<ApplicationUser> updateApprovedTeam(@PathVariable String email,
+            @RequestBody ApplicationUser updatedUser) {
         List<ApplicationUser> applicationUsers = (List<ApplicationUser>) applicationUserRepository.findAll();
         for (ApplicationUser user : applicationUsers) {
             if (user.getEmail().equals(email)) {
@@ -61,8 +64,7 @@ public class ApplicationUserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
-//    }
+    // }
 
     // Delete
     @DeleteMapping("/{id}")
