@@ -27,7 +27,7 @@ jobs:
 
     - name: Push Backend Docker Image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/mybackend:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/mybackend2:latest
 
   build_frontend:
     runs-on: ubuntu-latest
