@@ -69,7 +69,7 @@ const CreateProject = ({ showModal, setShowModal }) => {
                     }
                 }).then((e) => {
                     console.log(e);
-                    window.location.href = 'http://localhost:3000/';
+                    window.location.href = 'http://43.204.140.185:3000/';
                 }).catch((e) => {
                     console.log(e);
                 })

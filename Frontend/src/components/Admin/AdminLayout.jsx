@@ -23,7 +23,7 @@ function AdminLayout() {
         <>
             <div className="flex flex-row" style={{ flexDirection: "row-reverse" }}>
                 <div className="save_button">
-                    <a href="http://localhost:8081/export/pdf"><button className="Export_button">Export As Pdf</button></a>
+                    <a href="http://43.204.140.185:8081/export/pdf"><button className="Export_button">Export As Pdf</button></a>
                 </div>
             </div>
             <div className='m-2 p-2'>
