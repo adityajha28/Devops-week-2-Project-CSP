@@ -1,6 +1,6 @@
 # Docker Image CI/CD with GitHub Actions
 
-This repository automates the building and deployment of Docker images for the backend and frontend of CSP application using GitHub Actions. The workflow includes building Docker images, pushing them to Docker Hub, and deploying them to an EC2 instance.
+This repository automates the building and deployment of Docker images for the backend and frontend of CSP (Customer Success Platform) application using GitHub Actions. The workflow includes building Docker images, pushing them to Docker Hub, and deploying them to an EC2 instance.
 
 ## Workflow Overview
 
@@ -125,7 +125,7 @@ This Dockerfile is responsible for building the frontend image for your applicat
 1. Ensure your backend and frontend applications are correctly configured with the provided Dockerfiles.
 2. Update the paths in the workflow to point to your backend and frontend directories.
 3. Set up secrets for DockerHub credentials, EC2 instance details, and SSH key.
-4. Commit and push the workflow file (`.github/workflows/main.yml`) to your repository.
+4. Commit and push the workflow file (`.github/workflows/dev-deploy.yml`) to your repository.
 5. Workflow will automatically trigger on pushes to the `main` branch and pull requests targeting `main`.
 
 # Results
