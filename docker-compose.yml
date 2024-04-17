@@ -5,7 +5,8 @@ services:
     build:
       dockerfile: ./Backend/Dockerfile_backend
       context: ./Backend
-    ports: "8081:8081"
+    ports: 
+      - "8081:8081"
     restart: unless-stopped
   
   fronted:
@@ -14,6 +15,7 @@ services:
     build:
       context: ./Frontend
       dockerfile: ./Frontend/Dockerfile_frontend
-    ports: "3000:3000"
+    ports: 
+      - "3000:3000"
     restart: unless-stopped
     
