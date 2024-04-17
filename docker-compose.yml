@@ -4,7 +4,7 @@ services:
     container_name: csp_backend
     build:
       dockerfile: ./Backend/Dockerfile_backend
-      context: ./Backend
+      context: .
     ports: 
       - "8081:8081"
     restart: unless-stopped
@@ -13,7 +13,7 @@ services:
     image: aditya280102/csp-backend:latest
     container_name: csp_frontend
     build:
-      context: ./Frontend
+      context: .
       dockerfile: ./Frontend/Dockerfile_frontend
     ports: 
       - "3000:3000"
